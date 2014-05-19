@@ -1,5 +1,5 @@
-require "tic_tac_toe/version"
+require "tic_tac_toe/rules"
 
 module TicTacToe
-  # Your code goes here...
+  VERSION = "0.0.1"
 end
