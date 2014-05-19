@@ -15,7 +15,22 @@ module TicTacToe
       diagonal_win?(board) || horizontal_win?(board) || vertical_win?(board)
     end
 
+    def winner(board)
+      if winning_row = find_winning_row(board)
+        winning_row.first
+      else
+        "No winner"
+      end
+    end
+
     private
+
+    def find_winning_row(board)
+      [diagonals(board), board.transpose, board].flatten(1).find do |row|
+        next if row.include?(" ")
+        row.uniq.length == 1
+      end
+    end
 
     def diagonal_win?(board)
       diagonals(board).any?{|diagonal| winning_row?(diagonal)}

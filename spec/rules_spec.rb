@@ -78,5 +78,19 @@ describe TicTacToe::Rules do
         end
       end
     end
+
+    describe '.winner' do
+      context 'we have a winner' do
+        it 'returns the winners mark' do
+          expect(game.winner(horizontal_win_board)).to eq "O"
+        end
+      end
+
+      context 'no winner' do
+        it 'returns no winner' do
+          expect(game.winner(board)).to eq "No winner"
+        end
+      end
+    end
   end
 end
