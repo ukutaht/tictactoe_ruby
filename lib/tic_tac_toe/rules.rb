@@ -2,16 +2,16 @@ module TicTacToe
   module Rules
     EMPTY = " "
     def move!(x: nil, y: nil, mark: nil, board: nil)
-      raise "Cell already occupied" unless valid?(x: x, y: y, board: board)
+      raise "Cell already occupied" unless valid_move?(x: x, y: y, board: board)
       board[y][x] = mark
       board
     end
 
-    def valid?(x: nil, y: nil, board: nil)
+    def valid_move?(x: nil, y: nil, board: nil)
       board[y][x] == EMPTY
     end
 
-    def over?(board)
+    def game_over?(board)
       diagonal_win?(board) || horizontal_win?(board) || vertical_win?(board)
     end
 
