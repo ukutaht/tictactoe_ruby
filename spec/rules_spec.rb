@@ -11,8 +11,8 @@ describe TicTacToe::Rules do
                              ["X", " ", " "]]}
 
   let(:horizontal_win_board) {[["O", "O", "O"],
-                              [" ", "X", " "],
-                              ["X", " ", " "]]}
+                               [" ", "X", " "],
+                               ["X", " ", " "]]}
 
   let(:vertical_win_board) { [["X", "O", "O"],
                               ["X", "X", " "],
