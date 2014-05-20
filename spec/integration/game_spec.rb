@@ -1,7 +1,7 @@
 describe TicTacToe::Game do
-  let(:board) { [[" ", " ", " "],
+  let(:board) { TicTacToe::Board.new([[" ", " ", " "],
                  [" ", " ", " "],
-                 [" ", " ", " "]] }
+                 [" ", " ", " "]] )}
   let(:presenter) { double("presenter") }
   let(:player1) { double("player1", :mark => "X") }
   let(:player2) { double("player2", :mark => "O") }

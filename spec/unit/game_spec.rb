@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe TicTacToe::Game do
-  let(:board) { [[" ", "X", " "],
-                 [" ", " ", " "],
-                 ["O", " ", " "]] }
+  let(:board) { TicTacToe::Board.new([[" ", "X", " "],
+                                      [" ", " ", " "],
+                                      ["O", " ", " "]]) }
   let(:presenter) { double("presenter") }
   let(:player1) { double("player1", :mark => "X") }
   let(:player2) { double("player2", :mark => "O") }
