@@ -14,6 +14,8 @@ describe TicTacToe::Game do
       allow(player2).to receive(:get_next_move).and_return([1, 1], [0, 2], [2, 0])
 
       expect(presenter).to receive(:announce_winner).with("O")
+      allow(presenter).to receive(:before_turn)
+      allow(presenter).to receive(:after_turn)
 
       game.play
     end

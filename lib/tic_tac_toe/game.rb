@@ -11,13 +11,19 @@ module TicTacToe
 
     def play
       until game_over?(board)
-        y, x = current_player.get_next_move
-        if valid_move?(x: x, y: y, board: board)
-          move!(x: x, y: y, mark: current_player.mark)
-        end
+        play_turn
         players.rotate!
       end
       presenter.announce_winner(winner(board))
+    end
+
+    def play_turn
+      presenter.before_turn(self)
+      y, x = current_player.get_next_move
+      if valid_move?(x: x, y: y, board: board)
+        move!(x: x, y: y, mark: current_player.mark)
+      end
+      presenter.after_turn(self)
     end
 
     private
