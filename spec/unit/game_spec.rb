@@ -27,4 +27,11 @@ describe TicTacToe::Game do
       game.play_turn
     end
   end
+
+  describe '#board_size' do
+    it 'delegates to board' do
+      expect(board).to receive(:size)
+      game.board_size
+    end
+  end
 end

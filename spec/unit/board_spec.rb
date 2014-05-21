@@ -87,4 +87,10 @@ describe TicTacToe::Board do
       end
     end
   end
+
+  describe '#size' do
+    it 'returns the correct size' do
+      expect(mid_game_board.size).to eq mid_game_board.board.size
+    end
+  end
 end

@@ -25,6 +25,10 @@ module TicTacToe
       presenter.after_turn(self)
     end
 
+    def board_size
+      @board_size ||= board.size
+    end
+
     private
 
     def current_player

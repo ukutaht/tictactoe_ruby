@@ -27,6 +27,10 @@ module TicTacToe
       board[y][x] = mark
     end
 
+    def size
+      board.size
+    end
+
     private
 
     def find_winning_row
