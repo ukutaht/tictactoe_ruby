@@ -1,7 +1,7 @@
 module TicTacToe
   class HumanPlayer
     attr_reader :mark
-    def initialize(mark: mark, presenter: presenter)
+    def initialize(mark: nil, presenter: nil)
       @mark = mark
       @presenter = presenter
     end

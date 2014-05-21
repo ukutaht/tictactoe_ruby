@@ -31,6 +31,10 @@ module TicTacToe
       board.size
     end
 
+    def to_s
+      board.to_s
+    end
+
     private
 
     def find_winning_row

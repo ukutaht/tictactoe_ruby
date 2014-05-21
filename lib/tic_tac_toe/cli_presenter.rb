@@ -1,38 +1,46 @@
 module TicTacToe
   class CLI_Presenter
-    attr_reader :game
-    attr_accessor :io_in, :io_out
+    attr_reader :board, :current_player
+    attr_accessor :io
 
-    def initialize(game: nil, io_out: nil, io_in: nil)
-      @game = game
-      @io_out = io_out
-      @io_in = io_in
+    def initialize(io: io)
+      @io = io
+    end
+
+    def update_board(board)
+      @board = board
+    end
+    
+    def update_current_player(player)
+      @current_player = player
     end
 
     def before_turn
-      io_out.puts before_turn_string
+      io.puts board.to_s
     end
 
     def after_turn
-      io_out.puts after_turn_string
+      io.puts board.to_s
     end
 
-    def before_turn_string
-      game.board.to_s
+    def invalid_move_message
+      io.puts "Invalid move, try again."
     end
 
-    def after_turn_string
-      game.board.to_s
+
+
+    def announce_winner(winner)
+      io.puts "#{winner} has won!"
     end
 
     def get_next_move
-      sanitize_input(io_in.gets.chomp)
+      sanitize_input(io.gets.chomp)
     end
 
     private
 
     def sanitize_input(str)
-      (str.to_i - 1).divmod(game.board_size)
+      (str.to_i - 1).divmod(board.size)
     end
   end
 end
