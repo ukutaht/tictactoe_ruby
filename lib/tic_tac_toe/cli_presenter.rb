@@ -16,11 +16,10 @@ module TicTacToe
     end
 
     def before_turn
-      io.puts board.to_s
-    end
-
-    def after_turn
-      io.puts board.to_s
+      system('clear')
+      board.board.chars.each_slice(3).to_a.each do |row|
+        io.puts row.inspect
+      end
     end
 
     def invalid_move_message
@@ -34,13 +33,9 @@ module TicTacToe
     end
 
     def get_next_move
-      sanitize_input(io.gets.chomp)
+      io.gets.chomp.to_i
     end
 
     private
-
-    def sanitize_input(str)
-      (str.to_i - 1).divmod(board.size)
-    end
   end
 end

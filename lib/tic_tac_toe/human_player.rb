@@ -6,7 +6,7 @@ module TicTacToe
       @presenter = presenter
     end
 
-    def get_next_move
+    def get_next_move(*)
       @presenter.get_next_move
     end
   end

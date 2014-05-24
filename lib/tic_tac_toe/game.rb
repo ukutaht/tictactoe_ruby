@@ -1,6 +1,6 @@
 module TicTacToe
   class Game
-    attr_reader :board, :players, :presenter
+    attr_accessor :board, :players, :presenter
 
     def initialize(players: nil, board: nil, presenter: nil)
       @players = players
@@ -12,41 +12,52 @@ module TicTacToe
     def play
       until board.game_over?
         play_turn
-        rotate_players
       end
       presenter.announce_winner(board.winner)
     end
 
     def play_turn
       presenter.before_turn
-      y, x = get_move
-      board.move!(x: x, y: y, mark: current_player.mark)
+      make_move!(get_move)
       presenter.update_board(board)
-      presenter.after_turn
     end
 
-    def board_size
-      @board_size ||= board.size
+    def add_player(player)
+      @players << player
     end
 
-    private
-
-    def rotate_players
-      players.rotate!
-      presenter.update_current_player(current_player)
+    def valid_moves
+      board.valid_moves
     end
 
-    def get_move
-      y, x = current_player.get_next_move
-      until board.valid_move?(x: x, y: y)
-        presenter.invalid_move_message
-        y, x = current_player.get_next_move
-      end
-      [y, x]
+    def make_move!(index)
+     @board = board.move(index: index, mark: current_player.mark) 
+     rotate_players!
+    end
+
+    def winner
+      board.winner
     end
 
     def current_player
       players.first
     end
+
+    private
+
+    def rotate_players!
+      players.rotate!
+      presenter.update_current_player(current_player)
+    end
+
+    def get_move
+      i  = current_player.get_next_move(board, players)
+      until board.valid_move?(i)
+        presenter.invalid_move_message
+        i = current_player.get_next_move
+      end
+      i 
+    end
+
   end
 end

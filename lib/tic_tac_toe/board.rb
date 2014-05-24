@@ -2,66 +2,71 @@ module TicTacToe
   class Board
     attr_reader :board
 
-    def initialize(ary)
-      @board = ary
-    end
+    STARTING_BOARD = "         "
     EMPTY = " "
 
-    def valid_move?(x: nil, y: nil)
-      board[y][x] == EMPTY
+    def initialize(board: nil)
+      @board = board || STARTING_BOARD
+    end
+
+    def valid_move?(i)
+      board[i] == EMPTY
+    end
+
+    def valid_moves
+      board.chars.map.with_index{|el, i| i if el == EMPTY}.compact
     end
 
     def game_over?
-      diagonal_win? || horizontal_win? || vertical_win?
+      draw? || winner != :no_winner
     end
 
     def winner
-      if winning_row = find_winning_row
-        winning_row.first
-      else
-        "No winner"
-      end
+      find_winning_row.first rescue :no_winner
+    end
+
+    def draw?
+      !board.chars.any?{|c| c == EMPTY} && winner == :no_winner
     end
     
-    def move!(y: nil, x: nil, mark: nil)
-      board[y][x] = mark
+    def move(index: nil, mark: nil)
+      new_board_string = String.new(board)
+      new_board_string[index] = mark
+      Board.new(board: new_board_string)
     end
 
-    def size
-      board.size
+    def char_at(i)
+      board[i]
     end
 
-    def to_s
-      board.to_s
+    def inspect 
+      board.inspect
     end
 
     private
 
     def find_winning_row
-      [diagonals(board), board.transpose, board].flatten(1).find do |row|
-        next if row.include?(" ")
+      [diagonals, rows, columns].flatten(1).find do |row|
+        next if row.include?(EMPTY)
         row.uniq.length == 1
       end
     end
 
-    def diagonal_win?
-      diagonals(board).any?{|diagonal| winning_row?(diagonal)}
+    def rows
+      board.chars.each_slice(size).to_a
     end
 
-    def horizontal_win?
-      board.any?{|row| winning_row?(row)}
+    def columns
+      rows.transpose
     end
 
-    def vertical_win?
-      board.transpose.any?{|row| winning_row?(row)}
-    end
-
-    def diagonals(ary)
-      [diagonal(ary), diagonal(ary.transpose.map(&:reverse))]
+    def diagonals
+      board_ary = board.split("").each_slice(size).to_a
+      [diagonal(board_ary), diagonal(board_ary.transpose.map(&:reverse))]
     end
 
     def diagonal(ary)
-      (0...ary.size).map do |n|
+      (0...size).map do |n|
         ary[n][n]
       end
     end

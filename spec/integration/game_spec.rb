@@ -1,7 +1,5 @@
 describe TicTacToe::Game do
-  let(:board) { TicTacToe::Board.new([[" ", " ", " "],
-                 [" ", " ", " "],
-                 [" ", " ", " "]] )}
+  let(:board) { TicTacToe::Board.new }
   let(:io_string) { StringIO.new }
   let(:presenter) { TicTacToe::CLI_Presenter.new(io: io_string) }
   let(:player1) { double("player1", :mark => "X") }
@@ -11,9 +9,9 @@ describe TicTacToe::Game do
 
   describe '#play' do
     it 'does stuff' do
-      allow(player1).to receive(:get_next_move).and_return([1, 0], [2, 2], [2, 1])
-      allow(player2).to receive(:get_next_move).and_return([1, 1], [0, 2], [2, 0])
-
+      allow(player1).to receive(:get_next_move).and_return(3, 8, 7)
+      allow(player2).to receive(:get_next_move).and_return(4, 2, 6)
+      
       game.play
       expect(io_string.string).to include("O has won!")
     end

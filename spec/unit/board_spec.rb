@@ -1,45 +1,46 @@
 require 'spec_helper'
 
 describe TicTacToe::Board do
-  let(:mid_game_ary) {[["O", " ", " "],
-                       [" ", "X", " "],
-                       [" ", " ", " "]]}
-
-  let(:diagonal_win_ary) {[["O", " ", "X"],
-                             [" ", "X", " "],
-                             ["X", " ", " "]]}
-
-  let(:horizontal_win_ary) {[["O", "O", "O"],
-                               [" ", "X", " "],
-                               ["X", " ", " "]]}
-
-  let(:vertical_win_ary) { [["X", "O", "O"],
-                              ["X", "X", " "],
-                              ["X", " ", "O"]]}
-
-  let(:mid_game_board) { TicTacToe::Board.new(mid_game_ary) }
-  let(:diagonal_win_board) { TicTacToe::Board.new(diagonal_win_ary) }
-  let(:horizontal_win_board) { TicTacToe::Board.new(horizontal_win_ary) }
-  let(:vertical_win_board) { TicTacToe::Board.new(vertical_win_ary) }
+  let(:mid_game_str) { "O   X    " }
+  let(:diagonal_win_str) {"O X X X  "}
+  let(:horizontal_win_str) {"OOO X X  "}
+  let(:vertical_win_str) {"XOOXX X O"}
+  let(:draw_board_str) {"XOXXXOOXO"}
+  
+  let(:mid_game_board) { TicTacToe::Board.new(board: mid_game_str) }
+  let(:diagonal_win_board) { TicTacToe::Board.new(board: diagonal_win_str) }
+  let(:horizontal_win_board) { TicTacToe::Board.new(board: horizontal_win_str) }
+  let(:vertical_win_board) { TicTacToe::Board.new(board: vertical_win_str) }
+  let(:draw_board) { TicTacToe::Board.new(board: draw_board_str) }
   
 
-  describe 'validations' do
+  describe '#valid_move?' do
     context 'valid move' do
       it 'returns true' do
-        expect(mid_game_board.valid_move?(x: 1, y: 0))
+        expect(mid_game_board.valid_move?(1))
           .to be_true
       end
     end
 
     context 'invalid move' do
       it 'returns false' do
-        expect(mid_game_board.valid_move?(x: 0, y: 0))
+        expect(mid_game_board.valid_move?(0))
           .to be_false
       end
     end
   end
 
-  describe '.over?' do
+  describe '#valid_moves' do
+    it 'returns all valid moves' do
+      expect(mid_game_board.valid_moves).to eq [1, 2, 3, 5, 6, 7, 8]
+    end
+
+     it 'returns empty list for full board' do
+       expect(draw_board.valid_moves).to eq []
+     end
+  end
+
+  describe '#over?' do
     context 'game not over' do
       it 'is false' do
         expect(mid_game_board.game_over?).to be_false
@@ -63,6 +64,11 @@ describe TicTacToe::Board do
         expect(vertical_win_board.game_over?).to be_true
       end
     end
+    context 'draw' do
+      it 'is true' do
+        expect(draw_board.game_over?).to eq true
+      end
+    end
   end
 
   describe '.winner' do
@@ -74,23 +80,18 @@ describe TicTacToe::Board do
 
     context 'no winner' do
       it 'returns no winner' do
-        expect(mid_game_board.winner).to eq "No winner"
+        expect(mid_game_board.winner).to eq :no_winner
       end
     end
   end
 
-  describe '#move!' do
-    context 'move is valid' do
-      it 'marks the spot' do
-        mid_game_board.move!(y: 2, x: 2, mark: "X")
-        expect(mid_game_board.board[2][2]).to eq "X"
-      end
+  describe '#move' do
+    it 'returns new board' do
+      expect(mid_game_board.move(index: 8, mark: "X")).to_not equal(mid_game_board)
     end
-  end
 
-  describe '#size' do
-    it 'returns the correct size' do
-      expect(mid_game_board.size).to eq mid_game_board.board.size
+    it 'places the mark' do
+      expect(mid_game_board.move(index: 8, mark: "X").char_at(8)).to eq "X"
     end
   end
 end
