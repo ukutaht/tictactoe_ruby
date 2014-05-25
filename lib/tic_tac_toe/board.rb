@@ -76,5 +76,8 @@ module TicTacToe
       row.uniq.length == 1
     end
 
+    def size
+      @size ||= Math.sqrt(board.size)
+    end
   end
 end
