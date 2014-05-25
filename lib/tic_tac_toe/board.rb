@@ -4,6 +4,7 @@ module TicTacToe
 
     STARTING_BOARD = "         "
     EMPTY = " "
+    NO_WINNER_MSG = :no_winner
 
     def initialize(board: nil)
       @board = board || STARTING_BOARD
@@ -18,15 +19,19 @@ module TicTacToe
     end
 
     def game_over?
-      draw? || winner != :no_winner
+      draw? || winner != NO_WINNER_MSG
     end
 
     def winner
-      find_winning_row.first rescue :no_winner
+      if winner = find_winning_row
+        winner
+      else
+        NO_WINNER_MSG
+      end
     end
 
     def draw?
-      !board.chars.any?{|c| c == EMPTY} && winner == :no_winner
+      !board.chars.any?{|c| c == EMPTY} && winner == NO_WINNER_MSG
     end
     
     def move(index: nil, mark: nil)
