@@ -15,7 +15,7 @@ module TicTacToe
     end
 
     def valid_moves
-      board.chars.map.with_index{|el, i| i if el == EMPTY}.compact
+      (0...board.size).select{|i| board[i] == EMPTY}
     end
 
     def game_over?
@@ -23,8 +23,8 @@ module TicTacToe
     end
 
     def winner
-      if winner = find_winning_row
-        winner
+      if winning_row = find_winning_row
+        winning_row.first
       else
         NO_WINNER_MSG
       end
