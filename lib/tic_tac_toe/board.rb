@@ -31,7 +31,7 @@ module TicTacToe
     end
 
     def draw?
-      !board.chars.any?{|c| c == EMPTY} && winner == NO_WINNER_MSG
+      board.chars.all?{|c| c != EMPTY} && winner == NO_WINNER_MSG
     end
     
     def move(index: nil, mark: nil)
@@ -58,7 +58,7 @@ module TicTacToe
     end
 
     def rows
-      board.chars.each_slice(size).to_a
+      board.chars.each_slice(side_length).to_a
     end
 
     def columns
@@ -81,8 +81,8 @@ module TicTacToe
       row.uniq.length == 1
     end
 
-    def size
-      @size ||= Math.sqrt(board.size)
+    def side_length
+      @side_length ||= Math.sqrt(board.size)
     end
   end
 end
