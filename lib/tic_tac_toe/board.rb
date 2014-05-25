@@ -66,12 +66,12 @@ module TicTacToe
     end
 
     def diagonals
-      board_ary = board.split("").each_slice(size).to_a
+      board_ary = board.split("").each_slice(side_length).to_a
       [diagonal(board_ary), diagonal(board_ary.transpose.map(&:reverse))]
     end
 
     def diagonal(ary)
-      (0...size).map do |n|
+      (0...side_length).map do |n|
         ary[n][n]
       end
     end

@@ -16,7 +16,7 @@ module TicTacToe
     end
 
     def before_turn
-      system('clear')
+      io.puts "\e[H\e[2J"
       board.board.chars.each_slice(3).to_a.each do |row|
         io.puts row.inspect
       end

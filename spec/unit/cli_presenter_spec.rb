@@ -7,7 +7,7 @@ describe TicTacToe::CLI_Presenter do
    describe '#before_turn' do
     it 'outputs generated string' do
       presenter.io = s = StringIO.new
-      expect(s).to receive(:puts).exactly(3).times
+      expect(s).to receive(:puts).exactly(4).times
       
       presenter.before_turn
     end
