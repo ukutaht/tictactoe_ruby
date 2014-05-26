@@ -16,7 +16,7 @@ describe TicTacToe::CLI_Presenter do
 
   describe 'get_next_move' do
     it 'gets input from stdin' do
-      presenter.io = s = StringIO.new("3")
+      presenter.io  = StringIO.new("3")
 
       expect(presenter.get_next_move).to eq 2 
     end
