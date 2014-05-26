@@ -11,7 +11,7 @@ module TicTacToe
     end
 
     def valid_move?(i)
-      board[i] == EMPTY
+      valid_moves.include?(i)
     end
 
     def valid_moves

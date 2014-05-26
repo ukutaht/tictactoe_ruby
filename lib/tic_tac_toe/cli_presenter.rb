@@ -11,7 +11,7 @@ module TicTacToe
               * | * | *
    STRING
 
-    def initialize(io: io)
+    def initialize(io)
       @io = io
     end
 

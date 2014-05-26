@@ -1,7 +1,7 @@
 describe TicTacToe::Game do
   let(:board) { TicTacToe::Board.new }
   let(:io_string) { StringIO.new }
-  let(:presenter) { TicTacToe::CLI_Presenter.new(io: io_string) }
+  let(:presenter) { TicTacToe::CLI_Presenter.new(io_string) }
   let(:player1) { double("player1", :mark => "X") }
   let(:player2) { double("player2", :mark => "O") }
 

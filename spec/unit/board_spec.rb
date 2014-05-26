@@ -15,18 +15,19 @@ describe TicTacToe::Board do
   
 
   describe '#valid_move?' do
-    context 'valid move' do
-      it 'returns true' do
-        expect(mid_game_board.valid_move?(1))
-          .to be_true
-      end
+    it 'returns true for valid move' do
+      expect(mid_game_board.valid_move?(1))
+        .to be_true
     end
 
-    context 'invalid move' do
-      it 'returns false' do
-        expect(mid_game_board.valid_move?(0))
-          .to be_false
-      end
+    it 'returns false if cell already occupied' do
+      expect(mid_game_board.valid_move?(0))
+        .to be_false
+    end
+
+    it 'returns false if out of range' do
+      expect(mid_game_board.valid_move?(-1))
+        .to be_false
     end
   end
 
