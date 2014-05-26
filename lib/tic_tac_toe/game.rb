@@ -7,6 +7,7 @@ module TicTacToe
       @board = board
       @presenter = presenter
       presenter.update_board(board)
+      presenter.update_current_player(current_player)
     end
 
     def play

@@ -44,8 +44,8 @@ module TicTacToe
       board[i]
     end
 
-    def inspect 
-      board.inspect
+    def to_s 
+      board.chars.map.with_index{|cell, index| cell == EMPTY ? index + 1 : cell}.join("")
     end
 
     private
@@ -74,11 +74,6 @@ module TicTacToe
       (0...side_length).map do |n|
         ary[n][n]
       end
-    end
-
-    def winning_row?(row)
-      return false if row.any?{|cell| cell == EMPTY}
-      row.uniq.length == 1
     end
 
     def side_length

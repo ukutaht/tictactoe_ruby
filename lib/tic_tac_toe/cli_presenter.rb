@@ -2,6 +2,14 @@ module TicTacToe
   class CLI_Presenter
     attr_reader :board, :current_player
     attr_accessor :io
+    
+    BOARD_STRING = <<-STRING.chomp
+              * | * | *
+             ---|---|---
+              * | * | * 
+             ---|---|--
+              * | * | *
+   STRING
 
     def initialize(io: io)
       @io = io
@@ -17,25 +25,26 @@ module TicTacToe
 
     def before_turn
       io.puts "\e[H\e[2J"
-      board.board.chars.each_slice(3).to_a.each do |row|
-        io.puts row.inspect
+      board_str = BOARD_STRING.dup
+      board.to_s.chars.to_a.each do |cell|
+        board_str.sub!("*", cell)
       end
+      io.puts "              #{current_player.mark} turn!"
+      io.puts
+      io.puts board_str
+      io.puts
     end
 
     def invalid_move_message
       io.puts "Invalid move, try again."
     end
 
-
-
     def announce_winner(winner)
       io.puts "#{winner} has won!"
     end
 
     def get_next_move
-      io.gets.chomp.to_i
+      io.gets.chomp.to_i - 1
     end
-
-    private
   end
 end

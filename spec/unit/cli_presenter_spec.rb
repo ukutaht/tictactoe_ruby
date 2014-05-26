@@ -7,7 +7,8 @@ describe TicTacToe::CLI_Presenter do
    describe '#before_turn' do
     it 'outputs generated string' do
       presenter.io = s = StringIO.new
-      expect(s).to receive(:puts).exactly(4).times
+      expect(s).to receive(:puts).exactly(5).times
+      presenter.update_current_player(double(:mark => "X"))
       
       presenter.before_turn
     end
@@ -17,13 +18,13 @@ describe TicTacToe::CLI_Presenter do
     it 'gets input from stdin' do
       presenter.io = s = StringIO.new("3")
 
-      expect(presenter.get_next_move).to eq 3 
+      expect(presenter.get_next_move).to eq 2 
     end
 
     it 'handles newlines' do
       presenter.io = StringIO.new("5\n")
 
-      expect(presenter.get_next_move).to eq 5
+      expect(presenter.get_next_move).to eq 4
     end
   end
 end
