@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TicTacToe::Game do
-  let(:board) { TicTacToe::Board.new(board: " X    O  ")}
+  let(:board) { TicTacToe::Board.new( " X    O  ")}
   let(:presenter) { double("presenter").as_null_object }
   let(:player1) { double("player1", :mark => "X") }
   let(:player2) { double("player2", :mark => "O") }
@@ -48,13 +48,6 @@ describe TicTacToe::Game do
     end
   end
 
-  describe 'valid_moves' do
-    it 'delegates to board' do
-      expect(board).to receive(:valid_moves)
-      game.valid_moves
-    end
-  end
-
   describe '#make_move!' do
     it 'delegates to board' do
       expect(board).to receive(:move)
@@ -72,14 +65,6 @@ describe TicTacToe::Game do
     it 'delegates to board' do
       expect(board).to receive(:winner)
       game.winner
-    end
-  end
-
-
-  describe 'add_player' do
-    it 'adds the player to players list' do
-      game.add_player("HELLO")
-      expect(game.players).to include("HELLO")
     end
   end
 end

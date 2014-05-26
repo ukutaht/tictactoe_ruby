@@ -22,16 +22,8 @@ module TicTacToe
       presenter.update_board(board)
     end
 
-    def add_player(player)
-      @players << player
-    end
-
-    def valid_moves
-      board.valid_moves
-    end
-
     def make_move!(index)
-     @board = board.move(index: index, mark: current_player.mark) 
+     @board = board.move(index, current_player.mark) 
      rotate_players!
     end
 

@@ -15,5 +15,8 @@ describe TicTacToe::Game do
       game.play
       expect(io_string.string).to include("O has won!")
     end
+
+    it 'computer vs computer is a draw' do
+    end
   end
 end

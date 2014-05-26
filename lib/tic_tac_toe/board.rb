@@ -6,7 +6,7 @@ module TicTacToe
     EMPTY = " "
     NO_WINNER_MSG = :no_winner
 
-    def initialize(board: nil)
+    def initialize(board=nil)
       @board = board || STARTING_BOARD
     end
 
@@ -34,10 +34,10 @@ module TicTacToe
       board.chars.all?{|c| c != EMPTY} && winner == NO_WINNER_MSG
     end
     
-    def move(index: nil, mark: nil)
+    def move(index, mark)
       new_board_string = String.new(board)
       new_board_string[index] = mark
-      Board.new(board: new_board_string)
+      Board.new(new_board_string)
     end
 
     def char_at(i)

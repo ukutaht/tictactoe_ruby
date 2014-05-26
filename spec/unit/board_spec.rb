@@ -7,11 +7,11 @@ describe TicTacToe::Board do
   let(:vertical_win_str) {"XOOXX X O"}
   let(:draw_board_str) {"XOXXXOOXO"}
   
-  let(:mid_game_board) { TicTacToe::Board.new(board: mid_game_str) }
-  let(:diagonal_win_board) { TicTacToe::Board.new(board: diagonal_win_str) }
-  let(:horizontal_win_board) { TicTacToe::Board.new(board: horizontal_win_str) }
-  let(:vertical_win_board) { TicTacToe::Board.new(board: vertical_win_str) }
-  let(:draw_board) { TicTacToe::Board.new(board: draw_board_str) }
+  let(:mid_game_board) { TicTacToe::Board.new(mid_game_str) }
+  let(:diagonal_win_board) { TicTacToe::Board.new(diagonal_win_str) }
+  let(:horizontal_win_board) { TicTacToe::Board.new(horizontal_win_str) }
+  let(:vertical_win_board) { TicTacToe::Board.new(vertical_win_str) }
+  let(:draw_board) { TicTacToe::Board.new(draw_board_str) }
   
 
   describe '#valid_move?' do
@@ -87,11 +87,11 @@ describe TicTacToe::Board do
 
   describe '#move' do
     it 'returns new board' do
-      expect(mid_game_board.move(index: 8, mark: "X")).to_not equal(mid_game_board)
+      expect(mid_game_board.move(8, "X")).to_not equal(mid_game_board)
     end
 
     it 'places the mark' do
-      expect(mid_game_board.move(index: 8, mark: "X").char_at(8)).to eq "X"
+      expect(mid_game_board.move(8, "X").char_at(8)).to eq "X"
     end
   end
 end
