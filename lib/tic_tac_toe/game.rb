@@ -29,16 +29,12 @@ module TicTacToe
      rotate_players!
     end
 
-    def winner
-      board.winner
-    end
-
     def current_player
       players.first
     end
 
     private
-
+    
     def rotate_players!
       players.rotate!
       presenter.update_current_player(current_player)

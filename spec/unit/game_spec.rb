@@ -60,11 +60,4 @@ describe TicTacToe::Game do
       expect(game.board).to_not equal(starting_board)
     end
   end
-
-  describe '#winnner' do
-    it 'delegates to board' do
-      expect(board).to receive(:winner)
-      game.winner
-    end
-  end
 end

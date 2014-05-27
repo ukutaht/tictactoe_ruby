@@ -1,10 +1,11 @@
 module TicTacToe
   class ComputerPlayer
-    attr_reader :mark
+    attr_reader :mark, :transpositon_table
 
     def initialize(mark: nil)
       @mark = mark
       @depth = 10 
+      @transposition_table = {}
     end
 
     def get_next_move(board, players)
@@ -22,6 +23,26 @@ module TicTacToe
    private
 
    def negamax(board, color, players, alpha, beta, depth=@depth)
+     alpha_orig = alpha
+     
+     if tt_entry = @transposition_table[board.to_sym]
+       if tt_entry[:depth] >= depth
+         if tt_entry[:flag] == :exact
+           return tt_entry[:score]
+         elsif tt_entry[:flag] == :lower
+           alpha = [alpha, tt_entry[:score]].max
+         elsif tt_entry[:flag] == :upper
+           beta = [beta, tt_entry[:score]].min
+         end
+         if alpha >= beta
+           return tt_entry[:score]
+         end
+       end
+     else
+       tt_entry = {}
+     end
+     
+
      return color * get_score(board) if board.game_over? || depth == 0
      best_score = -Float::INFINITY
 
@@ -32,6 +53,17 @@ module TicTacToe
        alpha = [best_score, alpha].max
        break if alpha >= beta
      end
+
+     tt_entry[:score] = best_score
+     if best_score <= alpha_orig
+       tt_entry[:flag] = :upper
+     elsif best_score >= beta
+       tt_entry[:flag] = :lower
+     else
+       tt_entry[:flag] = :exact
+     end
+     tt_entry[:depth] = depth
+     @transposition_table[board.to_sym] = tt_entry
 
      return best_score 
    end

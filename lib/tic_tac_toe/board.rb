@@ -48,6 +48,10 @@ module TicTacToe
       board.chars.map.with_index{|cell, index| cell == EMPTY ? index + 1 : cell}.join("")
     end
 
+    def to_sym
+      board.to_sym
+    end
+
     private
 
     def find_winning_row
