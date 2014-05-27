@@ -9,9 +9,9 @@ describe TicTacToe::Game do
   let(:game) { TicTacToe::Game.new(players: [player1, player2], board: board, presenter: presenter) }
 
   describe '#play_turn' do
-    it 'updates presenter before the turn' do
+    it 'displays board' do
       allow(player1).to receive(:get_next_move).and_return(0)
-      expect(presenter).to receive(:before_turn)
+      expect(presenter).to receive(:display_board)
                
       game.play_turn
     end
@@ -49,8 +49,8 @@ describe TicTacToe::Game do
   end
 
   describe '#make_move!' do
-    it 'delegates to board' do
-      expect(board).to receive(:move)
+    it 'delegates to board with current players mark' do
+      expect(board).to receive(:move).with(1, "X")
       game.make_move!(1)
     end
 

@@ -23,13 +23,35 @@ module TicTacToe
       @current_player = player
     end
 
-    def before_turn
+    def get_players
+      players = []
+      ["X", "O"].each do |mark|
+        io.puts "Select player: 1-Human, 2-Computer"
+        selection = io.gets.chomp
+        if selection == "1"
+          players << TicTacToe::HumanPlayer.new(mark: mark, presenter: self)
+        elsif selection == "2"
+          players << TicTacToe::ComputerPlayer.new(mark: mark)
+        else
+          io.puts 'Invalid option, try again'
+          sleep(1)
+          redo
+        end
+      end
+      players
+    end
+
+    def display_board
       io.puts "\e[H\e[2J"
-      display_board
+      io.puts "              #{current_player.mark} turn!"
+      io.puts
+      io.puts build_board
+      io.puts
     end
 
     def invalid_move_message
       io.puts "Invalid move, try again."
+      sleep(1)
     end
 
     def announce_winner(winner)
@@ -47,15 +69,12 @@ module TicTacToe
     
      private
 
-     def display_board
+     def build_board
       board_str = BOARD_STRING.dup
       board.to_s.chars.to_a.each do |cell|
         board_str.sub!("*", cell)
       end
-      io.puts "              #{current_player.mark} turn!"
-      io.puts
-      io.puts board_str
-      io.puts
+      board_str
      end
   end
 end

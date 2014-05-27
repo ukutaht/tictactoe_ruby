@@ -7,10 +7,11 @@ module TicTacToe
       @board = board
       @presenter = presenter
       presenter.update_board(board)
-      presenter.update_current_player(current_player)
     end
 
     def play
+      self.players = presenter.get_players
+      presenter.update_current_player(current_player)
       until board.game_over?
         play_turn
       end
@@ -18,7 +19,7 @@ module TicTacToe
     end
 
     def play_turn
-      presenter.before_turn
+      presenter.display_board
       make_move!(get_move)
       presenter.update_board(board)
     end
