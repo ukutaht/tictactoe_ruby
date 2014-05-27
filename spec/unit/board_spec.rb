@@ -95,4 +95,41 @@ describe TicTacToe::Board do
       expect(mid_game_board.move(8, "X").char_at(8)).to eq "X"
     end
   end
+
+  describe 'rotations' do
+    it 'contains self' do
+      expect(draw_board.rotations).to include draw_board.board
+    end
+    describe 'clockwise rotations' do
+      it 'first' do
+        expect(draw_board.rotations).to include "OXXXXOOOX"
+      end
+      
+      it 'second' do
+        expect(draw_board.rotations).to include "OXOOXXXOX"
+      end
+
+      it 'third' do
+        expect(draw_board.rotations).to include "XOOOXXXXO"
+      end
+    end
+
+    describe 'mirrors' do
+      it 'diagonal' do
+        expect(draw_board.rotations).to include "XXOOXXXOO"
+      end
+
+      it 'second diagonal' do
+        expect(draw_board.rotations).to include "OOXXXOOXX"
+      end
+      
+      it 'vertical' do
+        expect(draw_board.rotations).to include "XOXOXXOXO"
+      end
+
+      it 'horizontal' do
+        expect(draw_board.rotations).to include "OXXXXOOOX"
+      end
+    end
+  end
 end

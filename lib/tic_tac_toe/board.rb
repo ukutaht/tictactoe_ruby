@@ -44,6 +44,17 @@ module TicTacToe
       board[i]
     end
 
+    def rotations
+      [board,
+       columns.map(&:reverse).join,
+       rows.map(&:reverse).reverse.join,
+       columns.reverse.join,
+       columns.rotate.rotate.rotate.join,
+       columns.reverse.map(&:reverse).join,
+       rows.map(&:reverse).join,
+       columns.map(&:reverse).join]
+    end
+
     def to_s 
       board.chars.map.with_index{|cell, index| cell == EMPTY ? index + 1 : cell}.join("")
     end

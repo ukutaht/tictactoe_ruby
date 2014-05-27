@@ -63,7 +63,10 @@ module TicTacToe
        tt_entry[:flag] = :exact
      end
      tt_entry[:depth] = depth
-     @transposition_table[board.to_sym] = tt_entry
+     board.rotations.each do |rotated|
+       @transposition_table[rotated.to_sym] = tt_entry
+     end
+
 
      return best_score 
    end
