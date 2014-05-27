@@ -1,3 +1,4 @@
+require 'colored'
 module TicTacToe
   class CLI_Presenter
     attr_reader :board, :current_player
@@ -72,7 +73,7 @@ module TicTacToe
      def build_board
       board_str = BOARD_STRING.dup
       board.to_s.chars.to_a.each do |cell|
-        board_str.sub!("*", cell)
+        board_str.sub!("*", cell == "X" ? cell.red : cell == "O" ?  cell.blue : cell)
       end
       board_str
      end
