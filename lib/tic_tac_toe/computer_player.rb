@@ -4,7 +4,7 @@ module TicTacToe
 
     def initialize(mark: nil)
       @mark = mark
-      @depth = 10 
+      @depth = 7 
       @transposition_table = {}
     end
 
@@ -63,6 +63,7 @@ module TicTacToe
        tt_entry[:flag] = :exact
      end
      tt_entry[:depth] = depth
+
      board.rotations.each do |rotated|
        @transposition_table[rotated.to_sym] = tt_entry
      end

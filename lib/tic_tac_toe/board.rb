@@ -5,6 +5,17 @@ module TicTacToe
     STARTING_BOARD = "         "
     EMPTY = " "
     NO_WINNER_MSG = :no_winner
+    WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+                            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                            [0, 4, 8], [2, 4, 6]]
+      ROTATIONS = [ [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    [2, 5, 8, 1, 4, 7, 0, 3, 6],
+                    [8, 7, 6, 5, 4, 3, 2, 1, 0],
+                    [6, 3, 0, 7, 4, 1, 8, 5, 2],
+                    [2, 1, 0, 5, 4, 3, 8, 7, 6],
+                    [6, 7, 8, 3, 4, 5, 0, 1, 2],
+                    [8, 5, 2, 7, 4, 1, 6, 3, 0],
+                    [0, 3, 6, 1, 4, 7, 2, 5, 8] ]
 
     def initialize(board=nil)
       @board = board || STARTING_BOARD
@@ -23,11 +34,7 @@ module TicTacToe
     end
 
     def winner
-      if winning_row = find_winning_row
-        winning_row.first
-      else
-        NO_WINNER_MSG
-      end
+      find_winner || NO_WINNER_MSG
     end
 
     def draw?
@@ -45,14 +52,9 @@ module TicTacToe
     end
 
     def rotations
-      [board,
-       columns.map(&:reverse).join,
-       rows.map(&:reverse).reverse.join,
-       columns.reverse.join,
-       columns.rotate.rotate.rotate.join,
-       columns.reverse.map(&:reverse).join,
-       rows.map(&:reverse).join,
-       columns.map(&:reverse).join]
+      ROTATIONS.map do |rotation|
+        rotation.map {|i| board[i]}.join
+      end
     end
 
     def to_s 
@@ -65,30 +67,16 @@ module TicTacToe
 
     private
 
-    def find_winning_row
-      [diagonals, rows, columns].flatten(1).find do |row|
-        next if row.include?(EMPTY)
-        row.uniq.length == 1
+    def find_winner
+      WINNING_COMBINATIONS.each do |triplet|
+        return board[triplet[0]] if winning_row?(triplet)
       end
+      nil
     end
 
-    def rows
-      board.chars.each_slice(side_length).to_a
-    end
-
-    def columns
-      rows.transpose
-    end
-
-    def diagonals
-      board_ary = board.split("").each_slice(side_length).to_a
-      [diagonal(board_ary), diagonal(board_ary.transpose.map(&:reverse))]
-    end
-
-    def diagonal(ary)
-      (0...side_length).map do |n|
-        ary[n][n]
-      end
+    def winning_row?(triplet)
+      row = triplet.map{|i| board[i]}
+      row.uniq.length == 1 && row[0] != EMPTY
     end
 
     def side_length
