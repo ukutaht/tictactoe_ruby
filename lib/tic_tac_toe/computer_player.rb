@@ -13,7 +13,7 @@ module TicTacToe
      best_index = nil
 
      board.valid_moves.shuffle.each do |index|
-       score = -negamax(board.move(index, self.mark), -1, players.rotate, -Float::INFINITY, Float::INFINITY)
+       score = -negamax(board.move(index, self.mark), players.rotate, -Float::INFINITY, Float::INFINITY)
        best_score, best_index = score, index if score > best_score
      end
 
@@ -22,7 +22,7 @@ module TicTacToe
 
    private
 
-   def negamax(board, color, players, alpha, beta, depth=@depth)
+   def negamax(board, players, alpha, beta, depth=@depth)
      # get from transposition table if can
      alpha_orig = alpha
      tt_entry = @transposition_table[board.to_sym]
@@ -40,12 +40,12 @@ module TicTacToe
      end 
 
      # else calculate best move
-     return color * get_score(board) if board.game_over? || depth == 0
+     return get_score(board, players.first.mark) if board.game_over? || depth == 0
      best_score = -Float::INFINITY
 
      board.valid_moves.each do |index|
        new_board = board.move(index, players.first.mark)
-       score = -negamax(new_board,-color, players.rotate,-beta, -alpha, depth-1) 
+       score = -negamax(new_board, players.rotate,-beta, -alpha, depth-1) 
        best_score = [best_score, score].max
        alpha = [best_score, alpha].max
        break if alpha >= beta
@@ -65,15 +65,14 @@ module TicTacToe
 
      board.rotations.each do |rotated|
        @transposition_table[rotated.to_sym] = tt_entry
-     end
-
+     end 
 
      return best_score 
    end
 
-   def get_score(board)
+   def get_score(board, mark)
      return 0 if board.draw?
-     return 1 if board.winner == self.mark 
+     return 1 if board.winner == mark 
      -1
    end
   end
