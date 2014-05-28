@@ -48,6 +48,5 @@ module TicTacToe
       end
       i 
     end
-
   end
 end

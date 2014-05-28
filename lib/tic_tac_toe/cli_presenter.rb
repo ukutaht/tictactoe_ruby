@@ -10,7 +10,7 @@ module TicTacToe
               * | * | * 
              ---|---|---
               * | * | *
-   STRING
+    STRING
 
     def initialize(io)
       @io = io
