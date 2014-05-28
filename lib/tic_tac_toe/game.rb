@@ -10,7 +10,7 @@ module TicTacToe
     end
 
     def play
-      self.players = presenter.get_players
+      get_players
       presenter.update_current_player(current_player)
       until board.game_over?
         play_turn
@@ -34,6 +34,17 @@ module TicTacToe
     end
 
     private
+
+    def get_players
+      @players = []
+      presenter.get_player_types.each do |mark, type|
+        if type == :human
+          @players << TicTacToe::HumanPlayer.new(mark: mark, presenter: presenter)
+        elsif type == :computer
+          @players << TicTacToe::ComputerPlayer.new(mark: mark)
+        end
+      end
+    end
     
     def rotate_players!
       players.rotate!

@@ -24,18 +24,17 @@ module TicTacToe
       @current_player = player
     end
 
-    def get_players
-      players = []
+    def get_player_types
+      players = {}
       ["X", "O"].each do |mark|
-        io.puts "Select player: 1-Human, 2-Computer"
+        io.puts "Select player #{mark} 1-Human, 2-Computer"
         selection = io.gets.chomp
         if selection == "1"
-          players << TicTacToe::HumanPlayer.new(mark: mark, presenter: self)
+          players[mark] = :human
         elsif selection == "2"
-          players << TicTacToe::ComputerPlayer.new(mark: mark)
+          players[mark] = :computer
         else
           io.puts 'Invalid option, try again'
-          sleep(1)
           redo
         end
       end

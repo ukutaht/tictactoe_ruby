@@ -14,14 +14,14 @@ describe TicTacToe::CLI_Presenter do
     end
   end
   
-  describe '#get_players' do
-    it 'constructs players based on input' do
+  describe '#get_player_types' do
+    it 'returns appropriate player types' do
       presenter.io = s =StringIO.new("1\n2\n")
       s.stub(:puts)
-      players = presenter.get_players
+      players = presenter.get_player_types
     
-      expect(players[0]).to be_a TicTacToe::HumanPlayer
-      expect(players[1]).to be_a TicTacToe::ComputerPlayer
+      expect(players["X"]).to be :human
+      expect(players["O"]).to be :computer
     end
   end
 
