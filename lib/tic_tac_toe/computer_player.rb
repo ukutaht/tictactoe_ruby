@@ -23,26 +23,23 @@ module TicTacToe
    private
 
    def negamax(board, color, players, alpha, beta, depth=@depth)
+     # get from transposition table if can
      alpha_orig = alpha
-     
-     if tt_entry = @transposition_table[board.to_sym]
-       if tt_entry[:depth] >= depth
-         if tt_entry[:flag] == :exact
-           return tt_entry[:score]
-         elsif tt_entry[:flag] == :lower
-           alpha = [alpha, tt_entry[:score]].max
-         elsif tt_entry[:flag] == :upper
-           beta = [beta, tt_entry[:score]].min
-         end
-         if alpha >= beta
-           return tt_entry[:score]
-         end
+     tt_entry = @transposition_table[board.to_sym]
+     if tt_entry && tt_entry[:depth] >= depth
+       if tt_entry[:flag] == :exact
+         return tt_entry[:score]
+       elsif tt_entry[:flag] == :lower
+         alpha = [alpha, tt_entry[:score]].max
+       elsif tt_entry[:flag] == :upper
+         beta = [beta, tt_entry[:score]].min
        end
-     else
-       tt_entry = {}
-     end
-     
+       if alpha >= beta
+         return tt_entry[:score]
+       end
+     end 
 
+     # else calculate best move
      return color * get_score(board) if board.game_over? || depth == 0
      best_score = -Float::INFINITY
 
@@ -54,6 +51,8 @@ module TicTacToe
        break if alpha >= beta
      end
 
+     #and store it in transposition table with all its rotations
+     tt_entry = {}
      tt_entry[:score] = best_score
      if best_score <= alpha_orig
        tt_entry[:flag] = :upper
