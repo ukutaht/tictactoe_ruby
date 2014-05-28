@@ -6,12 +6,10 @@ module TicTacToe
       @players = players
       @board = board
       @presenter = presenter
-      presenter.update_board(board)
     end
 
     def play
       get_players
-      presenter.update_current_player(current_player)
       until board.game_over?
         play_turn
       end
@@ -19,14 +17,9 @@ module TicTacToe
     end
 
     def play_turn
-      presenter.display_board
-      make_move!(get_move)
-      presenter.update_board(board)
-    end
-
-    def make_move!(index)
-     @board = board.move(index, current_player.mark) 
-     rotate_players!
+      presenter.display_board(board)
+      board.move!(get_move, current_player.mark) 
+      players.rotate!
     end
 
     def current_player
@@ -46,11 +39,6 @@ module TicTacToe
       end
     end
     
-    def rotate_players!
-      players.rotate!
-      presenter.update_current_player(current_player)
-    end
-
     def get_move
       i  = current_player.get_next_move(board, players)
       until board.valid_move?(i)

@@ -40,11 +40,15 @@ module TicTacToe
     def draw?
       board.chars.all?{|c| c != EMPTY} && winner == NO_WINNER_MSG
     end
+
+    def move!(index, mark)
+      @board[index] = mark
+      self
+    end
     
     def move(index, mark)
       new_board_string = String.new(board)
-      new_board_string[index] = mark
-      Board.new(new_board_string)
+      Board.new(new_board_string).move!(index, mark)
     end
 
     def char_at(i)

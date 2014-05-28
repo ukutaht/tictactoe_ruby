@@ -96,6 +96,12 @@ describe TicTacToe::Board do
     end
   end
 
+  describe '#move!' do
+    it 'places the mark' do
+      expect(mid_game_board.move!(8, "X").char_at(8)).to eq "X"
+    end
+  end
+
   describe 'rotations' do
     it 'contains self' do
       expect(draw_board.rotations).to include draw_board.board

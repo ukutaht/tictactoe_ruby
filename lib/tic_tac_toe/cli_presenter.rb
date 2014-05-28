@@ -16,14 +16,6 @@ module TicTacToe
       @io = io
     end
 
-    def update_board(board)
-      @board = board
-    end
-    
-    def update_current_player(player)
-      @current_player = player
-    end
-
     def get_player_types
       players = {}
       ["X", "O"].each do |mark|
@@ -41,21 +33,18 @@ module TicTacToe
       players
     end
 
-    def display_board
+    def display_board(board)
       io.puts "\e[H\e[2J"
-      io.puts "              #{current_player.mark} turn!"
       io.puts
-      io.puts build_board
+      io.puts build_board(board)
       io.puts
     end
 
     def invalid_move_message
       io.puts "Invalid move, try again."
-      sleep(1)
     end
 
     def announce_winner(winner)
-      display_board
       if winner == :no_winner
         io.puts "It's a draw!"
       else
@@ -69,7 +58,7 @@ module TicTacToe
     
      private
 
-     def build_board
+     def build_board(board)
       board_str = BOARD_STRING.dup
       board.to_s.chars.to_a.each do |cell|
         board_str.sub!("*", cell == "X" ? cell.red : cell == "O" ?  cell.blue : cell)

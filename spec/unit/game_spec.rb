@@ -47,17 +47,4 @@ describe TicTacToe::Game do
       expect(game.current_player).to eq player1
     end
   end
-
-  describe '#make_move!' do
-    it 'delegates to board with current players mark' do
-      expect(board).to receive(:move).with(1, "X")
-      game.make_move!(1)
-    end
-
-    it 'updates its board' do
-      starting_board = game.board
-      game.make_move!(1)
-      expect(game.board).to_not equal(starting_board)
-    end
-  end
 end

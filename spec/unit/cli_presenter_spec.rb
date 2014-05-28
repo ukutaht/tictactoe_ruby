@@ -2,15 +2,13 @@ require 'spec_helper'
 
 describe TicTacToe::CLI_Presenter do
   let(:presenter) { TicTacToe::CLI_Presenter.new(io: StringIO.new) }
-  before{ presenter.update_board(TicTacToe::Board.new)}
 
    describe '#display_board' do
     it 'outputs generated string' do
       presenter.io = s = StringIO.new
-      expect(s).to receive(:puts).exactly(5).times
-      presenter.update_current_player(double(:mark => "X"))
+      expect(s).to receive(:puts).exactly(4).times
       
-      presenter.display_board
+      presenter.display_board(TicTacToe::Board.new)
     end
   end
   
