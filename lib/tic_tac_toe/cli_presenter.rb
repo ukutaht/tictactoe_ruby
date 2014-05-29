@@ -45,10 +45,10 @@ module TicTacToe
     end
 
     def announce_winner(winner)
-      if winner == :no_winner
-        io.puts "It's a draw!"
-      else
+      if winner
         io.puts "#{winner} has won!"
+      else
+        io.puts "It's a draw!"
       end
     end
 

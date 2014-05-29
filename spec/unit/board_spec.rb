@@ -81,7 +81,7 @@ describe TicTacToe::Board do
 
     context 'no winner' do
       it 'returns no winner' do
-        expect(mid_game_board.winner).to eq :no_winner
+        expect(mid_game_board.winner).to be_false
       end
     end
   end

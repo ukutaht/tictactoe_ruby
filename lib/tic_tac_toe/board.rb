@@ -4,7 +4,6 @@ module TicTacToe
 
     STARTING_BOARD = "         "
     EMPTY = " "
-    NO_WINNER_MSG = :no_winner
     WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
                             [0, 3, 6], [1, 4, 7], [2, 5, 8],
                             [0, 4, 8], [2, 4, 6]]
@@ -22,15 +21,19 @@ module TicTacToe
     end
 
     def game_over?
-      draw? || winner != NO_WINNER_MSG
+      draw? || winner
     end
 
     def winner
-      find_winner || NO_WINNER_MSG
+      winner = nil
+      WINNING_COMBINATIONS.each do | triplet|
+        winner = board[triplet.first] if winning_row?(triplet)
+      end
+      winner
     end
 
     def draw?
-      board.chars.all?{|c| c != EMPTY} && winner == NO_WINNER_MSG
+      valid_moves.empty? && !winner 
     end
 
     def move!(index, mark)
@@ -55,13 +58,6 @@ module TicTacToe
     end
 
     private
-
-    def find_winner
-      WINNING_COMBINATIONS.each do |triplet|
-        return board[triplet[0]] if winning_row?(triplet)
-      end
-      nil
-    end
 
     def winning_row?(triplet)
       row = triplet.map{|i| board[i]}
