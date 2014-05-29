@@ -39,8 +39,7 @@ module TicTacToe
     end
     
     def move(index, mark)
-      new_board_string = String.new(board)
-      Board.new(new_board_string).move!(index, mark)
+      Board.new(board.dup).move!(index, mark)
     end
 
     def char_at(i)
@@ -57,10 +56,6 @@ module TicTacToe
       board.chars.map.with_index{|cell, index| cell == EMPTY ? index + 1 : cell}.join("")
     end
 
-    def to_sym
-      board.to_sym
-    end
-    
     def empty?
       board.chars.all?{|char| char == EMPTY}
     end
@@ -77,10 +72,6 @@ module TicTacToe
     def winning_row?(triplet)
       row = triplet.map{|i| board[i]}
       row.uniq.length == 1 && row[0] != EMPTY
-    end
-
-    def side_length
-      @side_length ||= Math.sqrt(board.size)
     end
   end
 end
