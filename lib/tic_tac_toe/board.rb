@@ -46,12 +46,6 @@ module TicTacToe
       board[i]
     end
 
-    def rotations
-      ROTATIONS.map do |rotation|
-        rotation.map {|i| board[i]}.join
-      end
-    end
-
     def to_s 
       board.chars.map.with_index{|cell, index| cell == EMPTY ? index + 1 : cell}.join("")
     end
