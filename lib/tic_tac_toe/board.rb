@@ -2,14 +2,14 @@ module TicTacToe
   class Board
     attr_reader :board
 
-    STARTING_BOARD = "         "
+    STARTING_BOARD =  "         "
     EMPTY = " "
     WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
                             [0, 3, 6], [1, 4, 7], [2, 5, 8],
                             [0, 4, 8], [2, 4, 6]]
 
-    def initialize(board=nil)
-      @board = board || STARTING_BOARD
+    def initialize(board=STARTING_BOARD)
+      @board = board.dup
     end
 
     def valid_move?(i)

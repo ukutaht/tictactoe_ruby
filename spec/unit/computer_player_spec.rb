@@ -5,7 +5,7 @@ describe TicTacToe::ComputerPlayer do
   describe '#get_next_move' do
     context 'empty_board' do
       let(:player1) { double("player1", :mark => "O") }
-      let(:computer) {TicTacToe::ComputerPlayer.new(mark: "X")}
+      let(:computer) {TicTacToe::ComputerPlayer.new("X")}
  
       
        it 'takes win if can take win' do

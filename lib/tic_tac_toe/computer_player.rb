@@ -2,9 +2,13 @@ module TicTacToe
   class ComputerPlayer
     attr_reader :mark, :transpositon_table
 
-    def initialize(mark: nil)
+    def initialize(mark)
       @mark = mark
       @depth = 7 
+    end
+
+    def human?
+      false
     end
 
     def get_next_move(board, players)

@@ -1,50 +1,67 @@
 require 'spec_helper'
 
 describe TicTacToe::Game do
-  let(:board) { TicTacToe::Board.new( " X    O  ")}
-  let(:presenter) { double("presenter").as_null_object }
-  let(:player1) { double("player1", :mark => "X") }
-  let(:player2) { double("player2", :mark => "O") }
+  let(:game) { TicTacToe::Game.new }
 
-  let(:game) { TicTacToe::Game.new(players: [player1, player2], board: board, presenter: presenter) }
-
-  describe '#play_turn' do
-    it 'displays board' do
-      allow(player1).to receive(:get_next_move).and_return(0)
-      expect(presenter).to receive(:display_board)
-               
-      game.play_turn
-    end
-
-    it 'gets input from player' do
-      expect(player1).to receive(:get_next_move).and_return(5)
-
-      game.play_turn
-    end
-
-    it 'prompts for input again if invalid' do
-      expect(player1).to receive(:get_next_move).exactly(2).times.and_return(1, 8)  
-      
-      game.play_turn
-    end
-
-    it 'prompts for input more times if needed' do
-      expect(player1).to receive(:get_next_move).exactly(4).times.and_return(1, 1, 1, 8)
-
-      game.play_turn
-    end
-
-    it 'rotates players' do
-      allow(player1).to receive(:get_next_move).and_return(0)
-      game.play_turn
-
-      expect(game.current_player).to eq player2
-    end
+  it 'adds human players' do
+    game.add_human_player("X")
+    expect(game.current_player.mark).to eq "X"
   end
 
-  describe '#current_player' do
-    it 'returns the current player' do
-      expect(game.current_player).to eq player1
+  it 'adds computer players' do
+    game.add_computer_player("X")
+    expect(game.current_player.mark).to eq "X"
+  end
+
+  it 'rejects more than three players' do
+    game.add_human_player("X")
+    game.add_human_player("O")
+    game.add_human_player("Y")
+    
+    expect(game.players.size).to eq 2
+  end
+
+  context 'human vs human' do
+    before do
+      game.add_human_player("X")
+      game.add_human_player("O")
+    end
+    
+    it 'starts with the first person added' do
+      expect(game.current_player.mark).to eq "X"
+    end
+
+    it 'plays the input move' do
+      game.make_move(0)
+
+      expect(game.board.char_at(0)).to eq "X"
+    end
+
+    it 'rotates players after every move' do
+      game.make_move(0)
+      expect(game.current_player.mark).to eq "O"
     end
   end
+  
+  it 'plays until game is over with two computers' do
+    game.add_computer_player("X")
+    game.add_computer_player("O") 
+
+    game.play_until_input_needed
+    expect(game.over?).to be_true
+  end
+
+  it 'gets rid of players on reset' do
+    game.add_human_player("X")
+    game.reset!
+    expect(game.players.size).to eq 0
+  end
+
+  it 'resets board on reset' do
+    game.add_human_player("X")
+    game.make_move(0)
+    game.reset!
+    expect(game.board.valid_moves.size).to eq 9
+  end
+
 end
