@@ -1,8 +1,7 @@
 require 'colored'
 module TicTacToe
-  class CLI_Presenter
-    attr_reader :board, :current_player
-    attr_accessor :io
+  class CLIDisplay
+    attr_accessor :input, :output
     
     BOARD_STRING = <<-STRING.chomp
               * | * | *
@@ -12,25 +11,9 @@ module TicTacToe
               * | * | *
     STRING
 
-    def initialize(io)
-      @io = io
-    end
-
-    def get_player_types
-      players = {}
-      ["X", "O"].each do |mark|
-        io.puts "Select player #{mark} 1-Human, 2-Computer"
-        selection = io.gets.chomp
-        if selection == "1"
-          players[mark] = :human
-        elsif selection == "2"
-          players[mark] = :computer
-        else
-          io.puts 'Invalid option, try again'
-          redo
-        end
-      end
-      players
+    def initialize(input=Kernel, output=Kernel)
+      @input = input
+      @output = output
     end
 
     def display_board(board)
@@ -53,14 +36,14 @@ module TicTacToe
     end
 
     def get_next_move
-      io.gets.chomp.to_i - 1
+      input.gets.chomp.to_i - 1
     end
     
      private
 
      def build_board(board)
       board_str = BOARD_STRING.dup
-      board.to_s.chars.to_a.each do |cell|
+      board.chars.each do |cell|
         board_str.sub!("*", cell == "X" ? cell.red : cell == "O" ?  cell.blue : cell)
       end
       board_str
