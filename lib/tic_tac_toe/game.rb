@@ -36,14 +36,6 @@ module TicTacToe
       play_until_input_needed
     end
 
-    def add_human_player(mark)
-      players << HumanPlayer.new(mark) if need_players?
-    end
-
-    def add_computer_player(mark)
-      players << TicTacToe::ComputerPlayer.new(mark) if need_players?
-    end
-
     def current_player
       players.first
     end
@@ -69,10 +61,22 @@ module TicTacToe
       @board = TicTacToe::Board.new
     end
 
+    def board_string
+      board.to_s
+    end
+
     private
 
     def get_computer_move
       current_player.get_next_move(board, players)
+    end
+
+    def add_human_player(mark)
+      players << HumanPlayer.new(mark) if need_players?
+    end
+
+    def add_computer_player(mark)
+      players << TicTacToe::ComputerPlayer.new(mark) if need_players?
     end
   end
 end

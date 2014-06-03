@@ -2,21 +2,10 @@ module TicTacToe
   class GUIPresenter
     DISPLAY_WIDTH = 600
     attr_reader :game, :cell_width
+
     def initialize(game)
       @game = game
       @cell_width = DISPLAY_WIDTH / 3
-    end
-
-    def collecting_players?
-      game.need_players?
-    end
-
-    def show_results?
-       game.over?
-    end
-
-    def winner_message
-      game.winner ? "#{game.winner} Has won!" : "It's a draw!"
     end
 
     def on_y_key
@@ -41,12 +30,24 @@ module TicTacToe
       game.play_until_input_needed
     end
 
+    def collecting_players?
+      game.need_players?
+    end
+
+    def show_results?
+      game.over?
+    end
+
+    def winner_message
+      game.winner ? "#{game.winner} Has won!" : "It's a draw!"
+    end
+
     def get_index_in_grid(mouse_x, mouse_y)
       (mouse_x/cell_width).to_i + 3 * (mouse_y / cell_width).to_i
     end
 
     def draw_marks(gui)
-      game.board.board.chars.each_with_index do |char, i|
+      game.board_string.chars.each_with_index do |char, i|
         unless char == TicTacToe::Board::EMPTY
           x = (i % 3) * cell_width
           y = (i / 3) * cell_width

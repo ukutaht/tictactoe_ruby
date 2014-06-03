@@ -50,7 +50,7 @@ module TicTacToe
     end
 
     def to_s 
-      board.chars.map.with_index{|cell, index| cell == EMPTY ? index + 1 : cell}.join("")
+      board
     end
 
     def empty?
