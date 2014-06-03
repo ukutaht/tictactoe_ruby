@@ -8,7 +8,7 @@ module TicTacToe
       @presenter = presenter
       super(width, width, false)
       @mark_font = Gosu::Font.new(self, Gosu::default_font_name, cell_width)
-      @text_font = Gosu::Font.new(self, Gosu::default_font_name, 20)
+      @text_font = Gosu::Font.new(self, Gosu::default_font_name, cell_width / 10)
     end
 
     def needs_cursor?
