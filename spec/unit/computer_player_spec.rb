@@ -2,7 +2,6 @@ require 'spec_helper'
 describe TicTacToe::ComputerPlayer do
    let(:player1) { double("player1", :mark => "O") }
    let(:computer) {TicTacToe::ComputerPlayer.new("X")}
- 
       
    it 'takes win if can take win' do
      board = TicTacToe::Board.new("   OXXOXO")

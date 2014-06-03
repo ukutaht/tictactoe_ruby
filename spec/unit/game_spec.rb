@@ -46,5 +46,4 @@ describe TicTacToe::Game do
 
     expect(game.board.valid_moves.size).to eq 9
   end
-
 end

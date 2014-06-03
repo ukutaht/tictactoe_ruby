@@ -1,11 +1,12 @@
 require 'gosu'
 module TicTacToe
   class GUIDisplay < Gosu::Window
-    attr_reader :width, :cell_width, :presenter, :font
-    def initialize(presenter, width)
+    attr_reader :width, :cell_width, :runner, :font
+
+    def initialize(runner, width)
       @width = width
       @cell_width = width / 3
-      @presenter = presenter
+      @runner = runner
       super(width, width, false)
       @mark_font = Gosu::Font.new(self, Gosu::default_font_name, cell_width)
       @text_font = Gosu::Font.new(self, Gosu::default_font_name, cell_width / 10)
@@ -20,20 +21,20 @@ module TicTacToe
       when Gosu::KbQ 
         close
       when Gosu::MsLeft  
-        presenter.on_click(mouse_x, mouse_y)
+        runner.on_click(mouse_x, mouse_y)
       when Gosu::KbY
-        presenter.on_y_key
+        runner.on_y_key
       when Gosu::KbN
-        presenter.on_n_key(self)
+        runner.on_n_key(self)
       end
     end
 
 
     def draw
-      if presenter.collecting_players?
+      if runner.collecting_players?
         @text_font.draw("Do you want to go first?(y/n)", 200, 300, 0)
-      elsif presenter.show_results?
-        @text_font.draw(presenter.winner_message, 200, 300, 0)
+      elsif runner.show_results?
+        @text_font.draw(runner.winner_message, 200, 300, 0)
         @text_font.draw("Play again?(y/n)", 200, 400, 0)
       else
         draw_grid
@@ -49,7 +50,7 @@ module TicTacToe
     end
 
     def draw_marks
-      presenter.draw_marks(self)
+      runner.draw_marks(self)
     end
     
     def draw_cell(cell, x, y)
