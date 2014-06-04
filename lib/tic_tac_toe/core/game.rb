@@ -62,6 +62,7 @@ module TicTacToe
       end
 
       private
+
       def valid_move?(index)
         board.valid_move?(index)
       end
