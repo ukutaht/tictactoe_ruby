@@ -1,13 +1,15 @@
 require 'gosu'
 module TicTacToe
   class GUIDisplay < Gosu::Window
-    attr_reader :width, :cell_width, :runner, :text_font, :mark_font
+    attr_reader :width, :cell_width, :runner, :text_font, :mark_font, :game_state
 
     def initialize(runner, width)
       @width = width
       @cell_width = width / 3
       @runner = runner
       super(width, width, false)
+      @player_goes_first_button = Gosu::Image.from_text(self, "Player", Gosu::default_font_name, 20)
+      @computer_goes_first_button = Gosu::Image.from_text(self, "Computer", Gosu::default_font_name, 20)
       @mark_font = Gosu::Font.new(self, Gosu::default_font_name, cell_width)
       @text_font = Gosu::Font.new(self, Gosu::default_font_name, cell_width / 10)
     end
@@ -16,11 +18,15 @@ module TicTacToe
       true
     end
 
+    def update
+      @game_state = runner.get_game_state
+    end
+
     def button_down(id)
       case id
       when Gosu::KbQ 
         close
-      when Gosu::MsLeft  
+      when Gosu::MsLGUIRunnereft  
         runner.on_click(mouse_x, mouse_y)
       when Gosu::KbY
         runner.on_y_key
@@ -31,9 +37,11 @@ module TicTacToe
 
 
     def draw
-      if runner.collecting_players?
-        text_font.draw("Do you want to go first?(y/n)", 200, 300, 0)
-      elsif runner.show_results?
+      if @game_state == :pre_game
+        text_font.draw("Who should go first?", 200, 200, 0)
+        @player_goes_first_button.draw(200, 300, 0, 1, 1, Gosu::Color::RED)
+        @computer_goes_first_button.draw(300, 300, 0, 1, 1, Gosu::Color::RED)
+      elsif @game_state == :post_game
         text_font.draw(runner.winner_message, 200, 300, 0)
         text_font.draw("Play again?(y/n)", 200, 400, 0)
       else

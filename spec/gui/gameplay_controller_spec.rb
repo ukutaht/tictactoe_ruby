@@ -1,9 +1,9 @@
-require 'tic_tac_toe/gui_runner'
+require 'tic_tac_toe/gui/gameplay_controller'
 
-describe TicTacToe::GUIRunner do
+describe TicTacToe::GUI::GameplayController do
   let(:game) { double() }
-  let(:runner) {TicTacToe::GUIRunner.new(game)}
-  let(:display_width) { TicTacToe::GUIRunner::DISPLAY_WIDTH}
+  let(:runner) {TicTacToe::GUI::GameplayController.new(game)}
+  let(:display_width) { TicTacToe::GUI::GameplayController::DISPLAY_WIDTH}
 
   before do
     allow(game).to receive(:need_players?).and_return false
@@ -23,6 +23,27 @@ describe TicTacToe::GUIRunner do
   it 'plays the center index when center is clicked' do
     expect(game).to receive(:make_move).with(4)
     runner.on_click(display_width / 3, display_width / 3)
+  end
+
+  it 'returns game state of pre_game when game needs players' do
+    allow(game).to receive(:need_players?).and_return(true)
+    allow(game).to receive(:over?).and_return(false)
+
+    expect(runner.get_game_state).to eq :pre_game
+  end
+
+  it 'returns game state of in_game when game does not need players' do
+    allow(game).to receive(:need_players?).and_return(false)
+    allow(game).to receive(:over?).and_return(false)
+
+    expect(runner.get_game_state).to eq :in_game
+  end
+
+  it 'returns game state of post_game when game s over' do
+    allow(game).to receive(:need_players?).and_return(false)
+    allow(game).to receive(:over?).and_return(true)
+
+    expect(runner.get_game_state).to eq :post_game
   end
 
   it 'draws marks on the display' do
