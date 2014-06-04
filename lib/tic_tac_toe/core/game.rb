@@ -23,7 +23,7 @@ module TicTacToe
         players.rotate!
       end
 
-      def play_until_input_needed
+      def play_until_human_move
         until current_player.human? || over?
           make_move(get_computer_move)
         end
