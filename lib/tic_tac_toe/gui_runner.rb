@@ -1,3 +1,4 @@
+require 'tic_tac_toe/core/board'
 module TicTacToe
   class GUIRunner
     DISPLAY_WIDTH = 600

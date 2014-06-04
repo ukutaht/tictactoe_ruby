@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'tic_tac_toe/core/board'
 
 describe TicTacToe::Core::ComputerPlayer do
    let(:player1) { double("player1", :mark => "O") }

@@ -1,3 +1,5 @@
+require 'tic_tac_toe/gui_runner'
+
 describe TicTacToe::GUIRunner do
   let(:game) {TicTacToe::Core::Game.new}
   let(:runner) {TicTacToe::GUIRunner.new(game)}

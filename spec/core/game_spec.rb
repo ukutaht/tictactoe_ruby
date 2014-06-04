@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'tic_tac_toe/core/game'
 
 describe TicTacToe::Core::Game do
   let(:game) { TicTacToe::Core::Game.new }
