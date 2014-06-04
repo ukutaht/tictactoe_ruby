@@ -1,7 +1,7 @@
 module TicTacToe
   module Core
     class Board
-      attr_reader :board
+      attr_reader :board_string
 
       STARTING_BOARD =  "         "
       EMPTY = " "
@@ -9,8 +9,8 @@ module TicTacToe
                               [0, 3, 6], [1, 4, 7], [2, 5, 8],
                               [0, 4, 8], [2, 4, 6]]
 
-      def initialize(board=STARTING_BOARD)
-        @board = board.dup
+      def initialize(board_string=STARTING_BOARD)
+        @board_string = board_string.dup
       end
 
       def valid_move?(i)
@@ -18,7 +18,7 @@ module TicTacToe
       end
 
       def valid_moves
-        (0...board.size).select{|i| board[i] == EMPTY}
+        (0...board_string.size).select{|i| board_string[i] == EMPTY}
       end
 
       def game_over?
@@ -28,7 +28,7 @@ module TicTacToe
       def winner
         winner = nil
         WINNING_COMBINATIONS.each do | triplet|
-          winner = board[triplet.first] if winning_row?(triplet)
+          winner = board_string[triplet.first] if winning_row?(triplet)
         end
         winner
       end
@@ -38,30 +38,34 @@ module TicTacToe
       end
 
       def move!(index, mark)
-        @board[index] = mark
+        @board_string[index] = mark
         self
       end
       
       def move(index, mark)
-        Board.new(board.dup).move!(index, mark)
+        Board.new(board_string.dup).move!(index, mark)
       end
 
       def char_at(i)
-        board[i]
+        board_string[i]
       end
 
       def to_s 
-        board
+        board_string
       end
 
       def empty?
-        board.chars.all?{|char| char == EMPTY}
+        board_string.chars.all?{|char| char == EMPTY}
+      end
+
+      def empty_square
+        EMPTY
       end
 
       private
 
       def winning_row?(triplet)
-        row = triplet.map{|i| board[i]}
+        row = triplet.map{|i| board_string[i]}
         row.uniq.length == 1 && row[0] != EMPTY
       end
     end
