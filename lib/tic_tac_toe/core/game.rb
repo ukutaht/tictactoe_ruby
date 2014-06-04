@@ -20,15 +20,9 @@ module TicTacToe
       def make_move(index)
         return false if !valid_move?(index)
 
-        board.move!(index, current_player.mark)
-        players.rotate!
+        play_human_move(index)
         play_computer_move
         true
-      end
-
-      def play_computer_move
-        board.move!(get_computer_move, current_player.mark) unless over?
-        players.rotate!
       end
 
       def human_goes_first
@@ -58,10 +52,6 @@ module TicTacToe
         board.winner
       end
 
-      def valid_move?(index)
-        board.valid_move?(index)
-      end
-
       def reset!
         @players = []
         @board = TicTacToe::Core::Board.new
@@ -72,6 +62,19 @@ module TicTacToe
       end
 
       private
+      def valid_move?(index)
+        board.valid_move?(index)
+      end
+
+      def play_human_move(index)
+        board.move!(index, current_player.mark) unless over?
+        players.rotate!
+      end
+
+      def play_computer_move
+        board.move!(get_computer_move, current_player.mark) unless over?
+        players.rotate!
+      end
 
       def get_computer_move
         current_player.get_next_move(board, players)
