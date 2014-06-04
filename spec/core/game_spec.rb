@@ -1,14 +1,33 @@
 require 'spec_helper'
 
-describe TicTacToe::Game do
-  let(:game) { TicTacToe::Game.new }
+describe TicTacToe::Core::Game do
+  let(:game) { TicTacToe::Core::Game.new }
 
 
-  it 'plays the input move' do
+  it 'plays the input move if valid' do
     game.human_goes_first
     game.make_move(0)
 
     expect(game.board.char_at(0)).to eq "X"
+  end
+
+  it 'returns a truthy value if valid move was made' do
+    game.human_goes_first
+
+    expect(game.make_move(0)).to be_true
+  end
+
+  it 'does not make the move if move is invalid' do
+    game.human_goes_first
+    game.make_move(100)
+
+    expect(game.board).to be_empty
+  end
+
+  it 'returns a falsey value if move was not made' do
+    game.human_goes_first
+    
+    expect(game.make_move(-1)).to be_false
   end
 
   it 'rotates players after every move' do

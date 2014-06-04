@@ -1,15 +1,12 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'tic_tac_toe'
+require_relative 'lib/tic_tac_toe'
 
 Gem::Specification.new do |spec|
   spec.name          = "tic_tac_toe"
   spec.version       = TicTacToe::VERSION
   spec.authors       = ["heruku"]
   spec.email         = ["uku.taht@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Unbeatable tic tac toe game implementation}
   spec.homepage      = ""
   spec.license       = "MIT"
 

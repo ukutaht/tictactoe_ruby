@@ -25,8 +25,9 @@ module TicTacToe
     end
 
     def on_click(x, y)
+      return if collecting_players?
       grid_index = get_index_in_grid(x, y)
-      game.make_move(grid_index) if game.valid_move?(grid_index)
+      game.make_move(grid_index) 
       game.play_until_input_needed
     end
 
@@ -48,7 +49,7 @@ module TicTacToe
 
     def draw_marks(gui)
       game.board_string.chars.each_with_index do |char, i|
-        unless char == TicTacToe::Board::EMPTY
+        unless char == TicTacToe::Core::Board::EMPTY
           x = (i % 3) * cell_width
           y = (i / 3) * cell_width
           gui.draw_cell(char, x, y)

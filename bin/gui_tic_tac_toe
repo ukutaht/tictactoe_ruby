@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/tic_tac_toe'
+TicTacToe::GUIDisplay.new(TicTacToe::GUIRunner.new(TicTacToe::Game.new), TicTacToe::GUIRunner::DISPLAY_WIDTH).show

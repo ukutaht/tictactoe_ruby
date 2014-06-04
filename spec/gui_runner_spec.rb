@@ -1,5 +1,5 @@
 describe TicTacToe::GUIRunner do
-  let(:game) {TicTacToe::Game.new}
+  let(:game) {TicTacToe::Core::Game.new}
   let(:runner) {TicTacToe::GUIRunner.new(game)}
   let(:display_width) { TicTacToe::GUIRunner::DISPLAY_WIDTH}
   before do
@@ -57,10 +57,14 @@ describe TicTacToe::GUIRunner do
     it 'knows when to collect players' do
       expect(runner.collecting_players?).to be_true
     end
+
+    it 'blocks mouse when collecting players' do
+      expect(runner.on_click(:_, :_)).to eq nil
+    end
   end
 
   context 'option to play again' do
-    let(:game) {TicTacToe::Game.new(TicTacToe::Board.new("XXX OOO  "))}
+    let(:game) {TicTacToe::Core::Game.new(TicTacToe::Core::Board.new("XXX OOO  "))}
 
     it 'resets the game if player presses y' do
       runner.on_y_key

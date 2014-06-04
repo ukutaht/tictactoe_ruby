@@ -1,17 +1,18 @@
 require 'spec_helper'
+require 'tic_tac_toe/core/board'
 
-describe TicTacToe::Board do
+describe TicTacToe::Core::Board do
   let(:mid_game_str) { "O   X    " }
   let(:diagonal_win_str) {"O X X X  "}
   let(:horizontal_win_str) {"OOO X X  "}
   let(:vertical_win_str) {"XOOXX X O"}
   let(:draw_board_str) {"XOXXXOOXO"}
   
-  let(:mid_game_board) { TicTacToe::Board.new(mid_game_str) }
-  let(:diagonal_win_board) { TicTacToe::Board.new(diagonal_win_str) }
-  let(:horizontal_win_board) { TicTacToe::Board.new(horizontal_win_str) }
-  let(:vertical_win_board) { TicTacToe::Board.new(vertical_win_str) }
-  let(:draw_board) { TicTacToe::Board.new(draw_board_str) }
+  let(:mid_game_board) { TicTacToe::Core::Board.new(mid_game_str) }
+  let(:diagonal_win_board) { TicTacToe::Core::Board.new(diagonal_win_str) }
+  let(:horizontal_win_board) { TicTacToe::Core::Board.new(horizontal_win_str) }
+  let(:vertical_win_board) { TicTacToe::Core::Board.new(vertical_win_str) }
+  let(:draw_board) { TicTacToe::Core::Board.new(draw_board_str) }
   
 
   describe '#valid_move?' do
@@ -104,7 +105,7 @@ describe TicTacToe::Board do
 
   describe '#empty?' do
     it 'is true for empty board' do
-      expect(TicTacToe::Board.new.empty?).to be_true
+      expect(TicTacToe::Core::Board.new.empty?).to be_true
     end
 
     it 'is false for non-empty board' do
