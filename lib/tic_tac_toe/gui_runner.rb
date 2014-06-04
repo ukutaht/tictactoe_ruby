@@ -50,7 +50,7 @@ module TicTacToe
 
     def draw_marks(gui)
       game.board_string.chars.each_with_index do |char, i|
-        unless char == TicTacToe::Core::Board::EMPTY
+        unless char == game.board.empty_square 
           x = (i % 3) * cell_width
           y = (i / 3) * cell_width
           gui.draw_cell(char, x, y)
