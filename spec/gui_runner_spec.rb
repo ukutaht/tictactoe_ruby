@@ -28,6 +28,7 @@ describe TicTacToe::GUIRunner do
   it 'draws marks on the display' do
     display = double()
     allow(game).to receive(:board_string).and_return "X        "
+    allow(game).to receive(:board).and_return(double(:empty_square => " "))
 
     expect(display).to receive(:draw_cell).with("X", 0, 0)
     runner.draw_marks(display)
