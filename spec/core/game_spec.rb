@@ -40,7 +40,7 @@ describe TicTacToe::Core::Game do
   it 'plays until human move' do
     game.human_goes_first
     game.make_move(0)
-    game.play_until_input_needed
+    game.play_until_human_turn
 
     expect(game.current_player).to be_human
   end

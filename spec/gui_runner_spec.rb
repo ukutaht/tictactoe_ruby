@@ -32,7 +32,7 @@ describe TicTacToe::GUIRunner do
   end
 
   it 'plays until human turn again' do
-    expect(game).to receive(:play_until_input_needed)
+    expect(game).to receive(:play_until_human_turn)
     runner.on_click(0,0)
   end
 

@@ -23,7 +23,7 @@ module TicTacToe
         players.rotate!
       end
 
-      def play_until_human_move
+      def play_until_human_turn
         until current_player.human? || over?
           make_move(get_computer_move)
         end
@@ -37,7 +37,7 @@ module TicTacToe
       def computer_goes_first
         add_computer_player("X")
         add_human_player("O")
-        play_until_input_needed
+        play_until_human_turn
       end
 
       def current_player

@@ -29,7 +29,7 @@ module TicTacToe
       return if collecting_players?
       grid_index = get_index_in_grid(x, y)
       game.make_move(grid_index) 
-      game.play_until_input_needed
+      game.play_until_human_turn
     end
 
     def collecting_players?
