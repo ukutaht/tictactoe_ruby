@@ -9,6 +9,12 @@ module TicTacToe
       @cell_width = DISPLAY_WIDTH / 3
     end
 
+   def on_click(x, y)
+      return if collecting_players? || game.over?
+      grid_index = get_index_in_grid(x, y)
+      game.make_move(grid_index) 
+    end
+
     def on_y_key
       if game.over?
         game.reset!
@@ -24,12 +30,6 @@ module TicTacToe
         game.computer_goes_first
       else
       end
-    end
-
-    def on_click(x, y)
-      return if collecting_players? || game.over?
-      grid_index = get_index_in_grid(x, y)
-      game.make_move(grid_index) 
     end
 
     def collecting_players?

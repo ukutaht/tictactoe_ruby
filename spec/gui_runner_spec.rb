@@ -33,13 +33,6 @@ describe TicTacToe::GUIRunner do
     runner.draw_marks(display)
   end
 
-  it 'contains the logic of drawing marks' do
-    gui = double("GUIDisplay")
-    allow(game).to receive(:board_string).and_return("X        ")
-    expect(gui).to receive(:draw_cell).with("X", 0, 0)
-    runner.draw_marks(gui)
-  end
-
   context 'collecting players' do
     before do
       allow(game).to receive(:need_players?).and_return true

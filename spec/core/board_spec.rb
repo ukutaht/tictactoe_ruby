@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'tic_tac_toe/core/board'
 
 describe TicTacToe::Core::Board do
