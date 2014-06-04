@@ -32,7 +32,7 @@ describe TicTacToe::GUIRunner do
     expect(display).to receive(:draw_cell).with("X", 0, 0)
     runner.draw_marks(display)
   end
-
+    
   context 'collecting players' do
     before do
       allow(game).to receive(:need_players?).and_return true
@@ -46,10 +46,6 @@ describe TicTacToe::GUIRunner do
     it 'adds computer first if player presses n' do
       expect(game).to receive(:computer_goes_first)
       runner.on_n_key(:irrelevant)
-    end
-
-    it 'knows when to collect players' do
-      expect(runner.collecting_players?).to be_true
     end
 
     it 'blocks mouse when collecting players' do

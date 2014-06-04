@@ -14,7 +14,7 @@ describe TicTacToe::Core::Game do
   it 'returns a truthy value if valid move was made' do
     game.human_goes_first
 
-    expect(game.make_move(0)).to be_true
+    expect(game.make_move(0)).to be_truthy
   end
 
   it 'does not make the move if move is invalid' do
@@ -27,7 +27,7 @@ describe TicTacToe::Core::Game do
   it 'returns a falsey value if move was not made' do
     game.human_goes_first
     
-    expect(game.make_move(-1)).to be_false
+    expect(game.make_move(-1)).to be_falsey
   end
 
   it 'plays computer move after human move' do

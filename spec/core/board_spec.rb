@@ -17,17 +17,17 @@ describe TicTacToe::Core::Board do
   describe '#valid_move?' do
     it 'returns true for valid move' do
       expect(mid_game_board.valid_move?(1))
-        .to be_true
+        .to be_truthy
     end
 
     it 'returns false if cell already occupied' do
       expect(mid_game_board.valid_move?(0))
-        .to be_false
+        .to be_falsey
     end
 
     it 'returns false if out of range' do
       expect(mid_game_board.valid_move?(-1))
-        .to be_false
+        .to be_falsey
     end
   end
 
@@ -44,25 +44,25 @@ describe TicTacToe::Core::Board do
   describe '#over?' do
     context 'game not over' do
       it 'is false' do
-        expect(mid_game_board.game_over?).to be_false
+        expect(mid_game_board.game_over?).to be_falsey
       end
     end
 
     context 'diagonal win' do
       it 'is true' do
-        expect(diagonal_win_board.game_over?).to be_true
+        expect(diagonal_win_board.game_over?).to be_truthy
       end
     end
 
     context 'horizontal win' do
       it 'is true' do
-        expect(horizontal_win_board.game_over?).to be_true
+        expect(horizontal_win_board.game_over?).to be_truthy
       end
     end
 
     context 'vertical win' do
       it 'is true' do
-        expect(vertical_win_board.game_over?).to be_true
+        expect(vertical_win_board.game_over?).to be_truthy
       end
     end
     context 'draw' do
@@ -81,7 +81,7 @@ describe TicTacToe::Core::Board do
 
     context 'no winner' do
       it 'returns no winner' do
-        expect(mid_game_board.winner).to be_false
+        expect(mid_game_board.winner).to be_falsey
       end
     end
   end
@@ -104,11 +104,11 @@ describe TicTacToe::Core::Board do
 
   describe '#empty?' do
     it 'is true for empty board' do
-      expect(TicTacToe::Core::Board.new.empty?).to be_true
+      expect(TicTacToe::Core::Board.new.empty?).to be_truthy
     end
 
     it 'is false for non-empty board' do
-      expect(mid_game_board.empty?).to be_false
+      expect(mid_game_board.empty?).to be_falsey
     end
   end
 end
