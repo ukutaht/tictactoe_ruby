@@ -13,7 +13,6 @@ module TicTacToe
       end
 
       def get_next_move(board, players)
-       return [0, 2, 6, 8].sample if board.empty?
        best_score = -Float::INFINITY
        best_index = nil
 
