@@ -54,8 +54,15 @@ module TicTacToe
 
     def build_board(board)
      board_str = BOARD_STRING.dup
-     board.chars.each do |cell|
-       board_str.sub!("*", cell == "X" ? cell.red : cell == "O" ?  cell.blue : cell)
+     board.chars.each_with_index do |cell, i|
+       cell_mark = if cell == "X"
+                     cell.red
+                   elsif cell == "O"
+                     cell.blue
+                   else
+                     "#{i + 1}"
+                   end
+       board_str.sub!("*", cell_mark)
      end
      board_str
     end

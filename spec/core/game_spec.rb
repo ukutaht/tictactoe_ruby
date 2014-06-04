@@ -30,17 +30,9 @@ describe TicTacToe::Core::Game do
     expect(game.make_move(-1)).to be_false
   end
 
-  it 'rotates players after every move' do
+  it 'plays computer move after human move' do
     game.human_goes_first
     game.make_move(0)
-
-    expect(game.current_player.mark).to eq "O"
-  end
-
-  it 'plays until human move' do
-    game.human_goes_first
-    game.make_move(0)
-    game.play_until_human_turn
 
     expect(game.current_player).to be_human
   end

@@ -39,6 +39,13 @@ describe TicTacToe::CLIDisplay do
     expect(display.output.string.count("O")).to eq 3
   end
 
+  it 'displays numbers for empty squares' do
+    display.show_board("X XO OXXX")
+
+    expect(display.output.string).to include '2'
+    expect(display.output.string).to include '5'
+  end
+
   it 'clears the screen before showing board' do
     display.show_board("")
     expect(display.output.string).to include "\e[H\e[2J"

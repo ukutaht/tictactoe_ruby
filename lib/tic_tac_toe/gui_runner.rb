@@ -12,7 +12,7 @@ module TicTacToe
     def on_y_key
       if game.over?
         game.reset!
-      else
+      elsif collecting_players?
         game.human_goes_first
       end
     end
@@ -20,16 +20,16 @@ module TicTacToe
     def on_n_key(gui)
       if game.over?
         gui.close
-      else
+      elsif collecting_players?
         game.computer_goes_first
+      else
       end
     end
 
     def on_click(x, y)
-      return if collecting_players?
+      return if collecting_players? || game.over?
       grid_index = get_index_in_grid(x, y)
       game.make_move(grid_index) 
-      game.play_until_human_turn
     end
 
     def collecting_players?

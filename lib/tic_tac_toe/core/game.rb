@@ -19,14 +19,16 @@ module TicTacToe
 
       def make_move(index)
         return false if !valid_move?(index)
-        board.move!(index, current_player.mark) if valid_move?(index)
+
+        board.move!(index, current_player.mark)
         players.rotate!
+        play_computer_move
+        true
       end
 
-      def play_until_human_turn
-        until current_player.human? || over?
-          make_move(get_computer_move)
-        end
+      def play_computer_move
+        board.move!(get_computer_move, current_player.mark) unless over?
+        players.rotate!
       end
 
       def human_goes_first
@@ -37,7 +39,7 @@ module TicTacToe
       def computer_goes_first
         add_computer_player("X")
         add_human_player("O")
-        play_until_human_turn
+        play_computer_move
       end
 
       def current_player

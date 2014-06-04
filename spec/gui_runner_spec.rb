@@ -1,11 +1,13 @@
 require 'tic_tac_toe/gui_runner'
 
 describe TicTacToe::GUIRunner do
-  let(:game) {TicTacToe::Core::Game.new}
+  let(:game) { double() }
   let(:runner) {TicTacToe::GUIRunner.new(game)}
   let(:display_width) { TicTacToe::GUIRunner::DISPLAY_WIDTH}
+
   before do
-    game.human_goes_first
+    allow(game).to receive(:need_players?).and_return false
+    allow(game).to receive(:over?).and_return false
   end
   
   it 'plays a move when click is made' do
@@ -24,16 +26,11 @@ describe TicTacToe::GUIRunner do
   end
 
   it 'draws marks on the display' do
-    game.make_move(0)
     display = double()
+    allow(game).to receive(:board_string).and_return "X        "
 
     expect(display).to receive(:draw_cell).with("X", 0, 0)
     runner.draw_marks(display)
-  end
-
-  it 'plays until human turn again' do
-    expect(game).to receive(:play_until_human_turn)
-    runner.on_click(0,0)
   end
 
   it 'contains the logic of drawing marks' do
@@ -44,7 +41,9 @@ describe TicTacToe::GUIRunner do
   end
 
   context 'collecting players' do
-    before { game.reset! }
+    before do
+      allow(game).to receive(:need_players?).and_return true
+    end
 
     it 'adds human player first if player presses y' do
       expect(game).to receive(:human_goes_first)
@@ -66,11 +65,13 @@ describe TicTacToe::GUIRunner do
   end
 
   context 'option to play again' do
-    let(:game) {TicTacToe::Core::Game.new(TicTacToe::Core::Board.new("XXX OOO  "))}
+    before do
+      allow(game).to receive(:over?).and_return true
+    end
 
     it 'resets the game if player presses y' do
+      expect(game).to receive(:reset!)
       runner.on_y_key
-      expect(game.players.size).to eq 0
     end
 
     it 'closes gui if the player presses n' do

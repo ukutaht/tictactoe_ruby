@@ -32,7 +32,6 @@ module TicTacToe
       until game.make_move(get_move)
         display.invalid_input_message
       end
-      game.play_until_human_turn
     end
 
     def game_over
