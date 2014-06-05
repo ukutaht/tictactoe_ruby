@@ -43,7 +43,7 @@ describe TicTacToe::CLIRunner do
     display.input.string = "n"
 
     runner.get_players
-    expect(game.current_player.mark).to eq "O"
+    expect(game.current_player).to_not be_human
   end
 
   it 'prompts for players again on invalid input' do
@@ -51,6 +51,13 @@ describe TicTacToe::CLIRunner do
 
     runner.get_players
     expect(game.current_player).to be_human
+  end
+
+  it 'makes computer moves without blocking thread' do
+     game.computer_goes_first
+     expect(display).to_not receive(:prompt_move)
+
+     runner.play_turn
   end
 
   context 'during game' do
@@ -69,14 +76,8 @@ describe TicTacToe::CLIRunner do
       expect(display).to receive(:invalid_input_message)
       runner.play_turn
     end
-      
-    it 'plays computer move after human' do
-      display.input.string = "1"
 
-      runner.play_turn
-      expect(game.current_player).to be_human
-    end
-  end
+     end
 
   it 'plays again if player wants to play again' do
     display.input.string = "y"

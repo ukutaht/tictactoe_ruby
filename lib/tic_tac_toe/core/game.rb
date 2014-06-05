@@ -1,4 +1,5 @@
 require_relative 'board'
+require_relative 'computer_player'
 
 module TicTacToe
   module Core
@@ -17,12 +18,12 @@ module TicTacToe
         @players = []
       end
 
-      def make_move(index)
-        return false if !valid_move?(index)
-
-        play_human_move(index)
-        play_computer_move
-        true
+      def play_next_move(board_index=nil)
+        if current_player.human?
+          play_human_move(board_index)
+        else
+          play_computer_move
+        end
       end
 
       def human_goes_first
@@ -33,7 +34,6 @@ module TicTacToe
       def computer_goes_first
         add_computer_player("X")
         add_human_player("O")
-        play_computer_move
       end
 
       def current_player
@@ -68,13 +68,17 @@ module TicTacToe
       end
 
       def play_human_move(index)
+        return false if !valid_move?(index)
+
         board.move!(index, current_player.mark) unless over?
         players.rotate!
+        true
       end
 
       def play_computer_move
         board.move!(get_computer_move, current_player.mark) unless over?
         players.rotate!
+        true
       end
 
       def get_computer_move

@@ -29,7 +29,7 @@ module TicTacToe
     end
 
     def play_turn
-      until game.make_move(get_move)
+      until game.play_next_move(get_move)
         display.invalid_input_message
       end
     end
@@ -54,7 +54,9 @@ module TicTacToe
     end
 
     def get_move
-      display.prompt_move.to_i - 1
+      if game.current_player.human?
+       display.prompt_move.to_i - 1 
+      end
     end
   end
 end
