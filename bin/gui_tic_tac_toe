@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/tic_tac_toe'
-TicTacToe::GUIDisplay.new(TicTacToe::GUIRunner.new(TicTacToe::Core::Game.new), TicTacToe::GUIRunner::DISPLAY_WIDTH).show
+game = TicTacToe::Core::Game.new
+controllers = [TicTacToe::GUI::SetupController.new(game), TicTacToe::GUI::GameplayController.new(game, 200)]
+
+TicTacToe::GUIDisplay.new(controllers, 600).show

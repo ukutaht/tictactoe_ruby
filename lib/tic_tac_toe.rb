@@ -7,8 +7,9 @@ require 'tic_tac_toe/core/game'
 require 'tic_tac_toe/core/computer_player'
 require 'tic_tac_toe/cli_runner'
 require 'tic_tac_toe/cli_display'
-require 'tic_tac_toe/gui_runner'
-require 'tic_tac_toe/gui_display'
+require 'tic_tac_toe/gui/setup_controller'
+require 'tic_tac_toe/gui/gameplay_controller'
+require 'tic_tac_toe/gui/display'
 
 module TicTacToe
   VERSION = "0.0.1"

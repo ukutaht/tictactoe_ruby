@@ -2,8 +2,8 @@ require 'tic_tac_toe/gui/gameplay_controller'
 
 describe TicTacToe::GUI::GameplayController do
   let(:game) { double() }
-  let(:runner) {TicTacToe::GUI::GameplayController.new(game)}
-  let(:display_width) { TicTacToe::GUI::GameplayController::DISPLAY_WIDTH}
+  let(:runner) {TicTacToe::GUI::GameplayController.new(game, 200)}
+  let(:display_width) { 600 }
 
   before do
     allow(game).to receive(:need_players?).and_return false
@@ -25,26 +25,6 @@ describe TicTacToe::GUI::GameplayController do
     runner.on_click(display_width / 3, display_width / 3)
   end
 
-  it 'returns game state of pre_game when game needs players' do
-    allow(game).to receive(:need_players?).and_return(true)
-    allow(game).to receive(:over?).and_return(false)
-
-    expect(runner.get_game_state).to eq :pre_game
-  end
-
-  it 'returns game state of in_game when game does not need players' do
-    allow(game).to receive(:need_players?).and_return(false)
-    allow(game).to receive(:over?).and_return(false)
-
-    expect(runner.get_game_state).to eq :in_game
-  end
-
-  it 'returns game state of post_game when game s over' do
-    allow(game).to receive(:need_players?).and_return(false)
-    allow(game).to receive(:over?).and_return(true)
-
-    expect(runner.get_game_state).to eq :post_game
-  end
 
   it 'draws marks on the display' do
     display = double()
@@ -53,52 +33,5 @@ describe TicTacToe::GUI::GameplayController do
 
     expect(display).to receive(:draw_cell).with("X", 0, 0)
     runner.draw_marks(display)
-  end
-    
-  context 'collecting players' do
-    before do
-      allow(game).to receive(:need_players?).and_return true
-    end
-
-    it 'adds human player first if player presses y' do
-      expect(game).to receive(:human_goes_first)
-      runner.on_y_key
-    end
-
-    it 'adds computer first if player presses n' do
-      expect(game).to receive(:computer_goes_first)
-      runner.on_n_key(:irrelevant)
-    end
-
-    it 'blocks mouse when collecting players' do
-      expect(runner.on_click(:_, :_)).to eq nil
-    end
-  end
-
-  context 'option to play again' do
-    before do
-      allow(game).to receive(:over?).and_return true
-    end
-
-    it 'resets the game if player presses y' do
-      expect(game).to receive(:reset!)
-      runner.on_y_key
-    end
-
-    it 'closes gui if the player presses n' do
-      gui = double("GUIDisplay")
-      expect(gui).to receive(:close)
-      runner.on_n_key(gui)
-    end
-  end
-
-  it 'generates a winner message' do
-    allow(game).to receive(:winner).and_return("X")
-    expect(runner.winner_message).to include "X"
-  end
-
-  it 'generates different message when draw' do
-    allow(game).to receive(:winner).and_return(false) 
-    expect(runner.winner_message).to include "draw"
   end
 end
