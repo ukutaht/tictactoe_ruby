@@ -12,9 +12,15 @@ module TicTacToe
         false
       end
 
-      def get_next_move(board, players)
+      def make_move(board, _index=nil)
+        move = get_next_move(board)
+        board.move!(move, self.mark)
+      end
+
+      def get_next_move(board)
        best_score = -Float::INFINITY
        best_index = nil
+       players = ['X', 'O'].unshift(mark).uniq
 
        board.valid_moves.shuffle.each do |index|
          score = -negamax(board.move(index, self.mark), players.rotate, -Float::INFINITY, Float::INFINITY)
@@ -27,11 +33,11 @@ module TicTacToe
      private
 
      def negamax(board, players, alpha, beta, depth=@depth)
-       return get_score(board, players.first.mark) if board.game_over? || depth == 0
+       return get_score(board, players.first) if board.game_over? || depth == 0
        best_score = -Float::INFINITY
 
        board.valid_moves.each do |index|
-         new_board = board.move(index, players.first.mark)
+         new_board = board.move(index, players.first)
          score = -negamax(new_board, players.rotate,-beta, -alpha, depth-1) 
          best_score = [best_score, score].max
          alpha = [best_score, alpha].max

@@ -9,6 +9,12 @@ module TicTacToe
         def human?
           true
         end
+
+        def make_move(board, index)
+          return false if !board.valid_move?(index)
+
+          board.move!(index, mark)
+        end
       end
 
       attr_reader :board, :players
@@ -19,10 +25,8 @@ module TicTacToe
       end
 
       def play_next_move(board_index=nil)
-        if current_player.human?
-          play_human_move(board_index)
-        else
-          play_computer_move
+        if current_player.make_move(board, board_index)
+          players.rotate!
         end
       end
 
@@ -67,25 +71,7 @@ module TicTacToe
         board.valid_move?(index)
       end
 
-      def play_human_move(index)
-        return false if !valid_move?(index)
-
-        board.move!(index, current_player.mark) unless over?
-        players.rotate!
-        true
-      end
-
-      def play_computer_move
-        board.move!(get_computer_move, current_player.mark) unless over?
-        players.rotate!
-        true
-      end
-
-      def get_computer_move
-        current_player.get_next_move(board, players)
-      end
-
-      def add_human_player(mark)
+     def add_human_player(mark)
         players << HumanPlayer.new(mark) if need_players?
       end
 
