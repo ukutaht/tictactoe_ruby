@@ -5,9 +5,6 @@ module TicTacToe
 
       STARTING_BOARD =  "         "
       EMPTY = " "
-      WINNING_COMBINATIONS = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
-                              [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                              [0, 4, 8], [2, 4, 6]]
 
       def initialize(board_string=STARTING_BOARD)
         @board_string = board_string.dup
@@ -25,9 +22,13 @@ module TicTacToe
         draw? || winner
       end
 
+      def winning_combinations
+        @winning_combinations ||= calculate_winning_combinations
+      end
+
       def winner
         winner = nil
-        WINNING_COMBINATIONS.each do | triplet|
+        winning_combinations.each do | triplet|
           winner = board_string[triplet.first] if winning_row?(triplet)
         end
         winner
@@ -63,6 +64,20 @@ module TicTacToe
       end
 
       private
+
+      def calculate_winning_combinations
+        side_length = Math.sqrt(board_string.size)
+
+        indices_ary = (0...board_string.size).each_slice(side_length).to_a
+
+        [indices_ary, indices_ary.transpose, [diagonal(indices_ary, side_length), diagonal(indices_ary.transpose.map(&:reverse), side_length)]].flatten(1)
+      end
+
+      def diagonal(ary, side_length)
+        0.upto(side_length -1).map do |i|
+          ary[i][i]
+        end
+      end
 
       def winning_row?(triplet)
         row = triplet.map{|i| board_string[i]}

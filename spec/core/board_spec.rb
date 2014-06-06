@@ -111,4 +111,25 @@ describe TicTacToe::Core::Board do
       expect(mid_game_board.empty?).to be_falsey
     end
   end
+
+  describe '4x4' do
+    let(:board) {TicTacToe::Core::Board.new("                ")}
+    it 'accepts move at index 10 as valid' do
+      expect(board.valid_move?(10)).to be_truthy
+    end
+
+    it 'move at index 16 is invalid' do
+      expect(board.valid_move?(16)).to be_falsey
+    end
+
+    it 'calculates winning combinations for the given board size' do
+      expect(board.winning_combinations).to include [0, 1, 2, 3]
+    end
+
+    it 'recognises winner' do
+      board = TicTacToe::Core::Board.new("XXXX            ")
+
+      expect(board.winner).to eq "X"
+    end
+  end
 end
