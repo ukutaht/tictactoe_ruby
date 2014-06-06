@@ -37,6 +37,13 @@ describe TicTacToe::Core::Game do
     expect(game.board).to_not be_empty
   end
 
+  it 'rotates players after move' do
+    game.human_goes_first
+    game.play_next_move(0)
+
+    expect(game.current_player).to_not be_human
+  end
+
   it 'gets rid of players on reset' do
     game.human_goes_first
     game.reset!

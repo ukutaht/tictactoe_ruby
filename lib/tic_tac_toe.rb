@@ -9,6 +9,10 @@ require 'tic_tac_toe/cli_runner'
 require 'tic_tac_toe/cli_display'
 require 'tic_tac_toe/gui/setup_controller'
 require 'tic_tac_toe/gui/gameplay_controller'
+require 'tic_tac_toe/gui/gameplay_view'
+require 'tic_tac_toe/gui/setup_view'
+require 'tic_tac_toe/gui/final_screen_controller'
+require 'tic_tac_toe/gui/final_screen_view'
 require 'tic_tac_toe/gui/display'
 
 module TicTacToe

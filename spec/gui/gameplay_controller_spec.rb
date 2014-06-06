@@ -2,36 +2,33 @@ require 'tic_tac_toe/gui/gameplay_controller'
 
 describe TicTacToe::GUI::GameplayController do
   let(:game) { double() }
-  let(:runner) {TicTacToe::GUI::GameplayController.new(game, 200)}
-  let(:display_width) { 600 }
+  let(:view) { double() }
+  let(:controller) {TicTacToe::GUI::GameplayController.new(game, view)}
 
-  before do
-    allow(game).to receive(:need_players?).and_return false
-    allow(game).to receive(:over?).and_return false
-  end
-  
-  it 'plays a move when click is made' do
-    expect(game).to receive(:make_move).with(0)
-    runner.on_click(0, 0)
+  it 'is current if game does not need players and is not over' do
+    allow(game).to receive(:need_players?).and_return(false)
+    allow(game).to receive(:over?).and_return(false)
+
+    expect(controller.current?).to be_truthy
   end
 
-  it 'plays the move at the last index when bottom right corner is clicked' do
-    expect(game).to receive(:make_move).with(8)
-    runner.on_click(display_width - 1, display_width - 1)
+  it 'is not current if game needs players' do
+    allow(game).to receive(:need_players?).and_return(true)
+
+    expect(controller.current?).to be_falsey
   end
 
-  it 'plays the center index when center is clicked' do
-    expect(game).to receive(:make_move).with(4)
-    runner.on_click(display_width / 3, display_width / 3)
+  it 'is not current if game is over' do
+    allow(game).to receive(:need_players?).and_return(false)
+    allow(game).to receive(:over?).and_return(true)
+
+    expect(controller.current?).to be_falsey
   end
 
+  it 'sends play next move to game with correct index' do
+    allow(view).to receive(:cell_index_for).with(0, 0).and_return(0)
+    expect(game).to receive(:play_next_move).with(0)
 
-  it 'draws marks on the display' do
-    display = double()
-    allow(game).to receive(:board_string).and_return "X        "
-    allow(game).to receive(:board).and_return(double(:empty_square => " "))
-
-    expect(display).to receive(:draw_cell).with("X", 0, 0)
-    runner.draw_marks(display)
+    controller.on_click(0, 0) 
   end
 end

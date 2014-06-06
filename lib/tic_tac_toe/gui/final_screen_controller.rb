@@ -1,16 +1,15 @@
-require_relative 'setup_view'
 module TicTacToe
   module GUI
-    class SetupController
+    class FinalScreenController
       attr_reader :game, :view
-      
+
       def initialize(game, view)
         @game = game
-        @view = view 
+        @view = view
       end
 
       def current?
-        game.need_players?
+        game.over? && !game.need_players?
       end
 
       def update
@@ -18,15 +17,15 @@ module TicTacToe
 
       def on_click(x, y)
         case view.which_button?(x, y)
-        when :player
-          game.human_goes_first
-        when :computer
-          game.computer_goes_first
-        end 
+        when :play_again
+          game.reset!
+        when :exit
+          exit
+        end
       end
 
       def render_view
-        view.render
+        view.render(game.winner)
       end
     end
   end

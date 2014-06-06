@@ -12,7 +12,7 @@ module TicTacToe
         false
       end
 
-      def make_move(board, _index=nil)
+      def make_move(board, _index)
         move = get_next_move(board)
         board.move!(move, self.mark)
       end
