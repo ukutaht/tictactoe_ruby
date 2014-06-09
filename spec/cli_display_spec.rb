@@ -12,10 +12,10 @@ describe TicTacToe::CLIDisplay do
     expect(display.output.string).to match /move/
   end
 
-  it 'prompts if user should go first' do
-    input.string = "y\n"
+  it 'prompts game type' do
+    input.string = "1\n"
 
-    expect(display.prompt_if_user_goes_first).to eq 'y'
+    expect(display.prompt_if_user_goes_first).to eq '1'
     expect(display.output.string).to match /go first?/
   end
 

@@ -9,7 +9,7 @@ describe TicTacToe::CLIRunner do
 
   context 'playing through the whole game' do
     before do
-      display.input.string = "y\n3\n0\n1\n2\n3\n4\n5\n6\n7\n8\nn\n"
+      display.input.string = "1\n3\n0\n1\n2\n3\n4\n5\n6\n7\n8\nn\n"
       begin
        runner.play
       rescue SystemExit
@@ -34,21 +34,35 @@ describe TicTacToe::CLIRunner do
   end
 
   it 'sets human as first player when user wants to go first' do
-    display.input.string = "y"
+    expect(game).to receive(:human_goes_first)
+    display.input.string = "1"
 
     runner.get_players
-    expect(game.current_player).to be_human
   end
 
   it 'sets computer as first player when user wants to go second' do
-    display.input.string = "n"
+    expect(game).to receive(:computer_goes_first)
+    display.input.string = "2"
 
     runner.get_players
-    expect(game.current_player).to_not be_human
+  end
+
+  it 'sets human vs human on when user presses 3' do
+    expect(game).to receive(:human_vs_human)
+    display.input.string = "3"
+    
+    runner.get_players
+  end
+
+  it 'sets computer vs computer when user presses 4' do
+    expect(game).to receive(:computer_vs_computer)
+    display.input.string = "4"
+
+    runner.get_players
   end
 
   it 'prompts for players again on invalid input' do
-    display.input.string = "g\ny\n"
+    display.input.string = "g\n1\n"
 
     runner.get_players
     expect(game.current_player).to be_human

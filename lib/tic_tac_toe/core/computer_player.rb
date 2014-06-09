@@ -5,7 +5,7 @@ module TicTacToe
 
       def initialize(mark)
         @mark = mark
-        @depth = 7 
+        @depth = 7
       end
 
       def human?

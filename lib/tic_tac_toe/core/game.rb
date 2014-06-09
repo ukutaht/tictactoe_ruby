@@ -37,14 +37,20 @@ module TicTacToe
         board.set_size(size) if VALID_BOARD_SIZES.include?(size)
       end
 
+      def human_vs_human
+        @players = [human_player("X"), human_player("O")]
+      end
+
+      def computer_vs_computer
+        @players = [computer_player("X"), computer_player("O")]
+      end
+
       def human_goes_first
-        add_human_player("X")
-        add_computer_player("O")
+        @players = [human_player("X"), computer_player("O")]
       end
 
       def computer_goes_first
-        add_computer_player("X")
-        add_human_player("O")
+        @players = [computer_player("X"), human_player("O")]
       end
 
       def current_player
@@ -78,12 +84,12 @@ module TicTacToe
         board.valid_move?(index)
       end
 
-     def add_human_player(mark)
-        players << HumanPlayer.new(mark) if need_players?
+     def human_player(mark)
+        HumanPlayer.new(mark)
       end
 
-      def add_computer_player(mark)
-        players << TicTacToe::Core::ComputerPlayer.new(mark) if need_players?
+      def computer_player(mark)
+        TicTacToe::Core::ComputerPlayer.new(mark)
       end
     end
   end

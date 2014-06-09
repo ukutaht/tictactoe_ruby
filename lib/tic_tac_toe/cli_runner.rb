@@ -23,10 +23,14 @@ module TicTacToe
 
     def get_players
       case display.prompt_if_user_goes_first
-      when 'y'
+      when '1'
         game.human_goes_first
-      when 'n'
+      when '2'
         game.computer_goes_first
+      when '3'
+        game.human_vs_human
+      when '4'
+        game.computer_vs_computer
       else
         display.invalid_input_message
         get_players

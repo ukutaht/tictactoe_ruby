@@ -3,16 +3,6 @@ module TicTacToe
   class CLIDisplay
     attr_accessor :input, :output
     
-    BOARD_STRING = <<-STRING.chomp
-
-              * | * | *
-             ---|---|---
-              * | * | * 
-             ---|---|---
-              * | * | *
-
-    STRING
-
     def initialize(input=Kernel, output=Kernel)
       @input = input
       @output = output
@@ -36,7 +26,7 @@ module TicTacToe
     end
 
     def prompt_if_user_goes_first
-      output.print "Would you like to go first?(y/n)"
+      output.print "Select game type(1 - human vs computer, 2 - computer vs human, 3 - human vs human, 4 - computer vs computer"
       input.gets.chomp
     end
 
@@ -80,21 +70,6 @@ module TicTacToe
         end
       end
       str
-    end
-
-    def old_build_board(board)
-     board_str = BOARD_STRING.dup
-     board.chars.each_with_index do |cell, i|
-       cell_mark = if cell == "X"
-                     cell.red
-                   elsif cell == "O"
-                     cell.blue
-                   else
-                     "#{i + 1}"
-                   end
-       board_str.sub!("*", cell_mark)
-     end
-     board_str
     end
   end
 end
