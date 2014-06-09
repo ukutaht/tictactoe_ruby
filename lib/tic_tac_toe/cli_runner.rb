@@ -8,13 +8,17 @@ module TicTacToe
     end
 
     def play
-      get_players
-      get_board_size
+      get_options
       until game.over?
         display.show_board(game.board_string)
         play_turn
       end
       game_over
+    end
+
+    def get_options
+      get_players
+      get_board_size
     end
 
     def get_players
