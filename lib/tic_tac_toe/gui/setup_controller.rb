@@ -1,4 +1,3 @@
-require_relative 'setup_view'
 module TicTacToe
   module GUI
     class SetupController
@@ -18,11 +17,15 @@ module TicTacToe
 
       def on_click(x, y)
         case view.which_button?(x, y)
-        when :player
+        when :human_first
           game.human_goes_first
-        when :computer
+        when :computer_first
           game.computer_goes_first
-        end 
+        when :human_vs_human
+          game.human_vs_human
+        when :computer_vs_computer
+          game.computer_vs_computer
+        end
       end
 
       def render_view

@@ -17,17 +17,30 @@ describe TicTacToe::GUI::SetupController do
     expect(controller.current?).to be_falsey
   end
 
-
   it 'lets human go first if they click player button' do
-    allow(view).to receive(:which_button?).and_return(:player)
+    allow(view).to receive(:which_button?).and_return(:human_first)
     expect(game).to receive(:human_goes_first)
 
     controller.on_click(:_, :_)
   end
 
   it 'lets computer go first if player clicks computer button' do
-    allow(view).to receive(:which_button?).and_return(:computer)
+    allow(view).to receive(:which_button?).and_return(:computer_first)
     expect(game).to receive(:computer_goes_first)
+
+    controller.on_click(:_, :_)
+  end
+
+  it 'allows human vs human' do
+    allow(view).to receive(:which_button?).and_return(:human_vs_human)
+    expect(game).to receive(:human_vs_human)
+
+    controller.on_click(:_, :_)
+  end
+
+  it 'allows computer vs computer' do
+    allow(view).to receive(:which_button?).and_return(:computer_vs_computer)
+    expect(game).to receive(:computer_vs_computer)
 
     controller.on_click(:_, :_)
   end

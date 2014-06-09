@@ -8,10 +8,14 @@ module TicTacToe
       end
 
       def which_button?(x, y)
-        if x.between?(200, 250) && y.between?(300, 320) 
-          :player
-        elsif x.between?(300, 350) && y.between?(300, 320)
-          :computer
+        if x.between?(150, 300) && y.between?(300, 320) 
+          :human_first
+        elsif x.between?(400, 550) && y.between?(300, 320)
+          :computer_first
+        elsif x.between?(150, 300) && y.between?(400, 420)
+          :human_vs_human
+        elsif x.between?(400, 550) && y.between?(400, 420)
+          :computer_vs_computer
         end
       end
 
@@ -21,12 +25,14 @@ module TicTacToe
       end
 
       def draw_prompt
-        Gosu::Font.new(gui, Gosu::default_font_name, 20).draw("Who goes first?", 200, 200, 0)
+        Gosu::Font.new(gui, Gosu::default_font_name, 20).draw("Select game type", 200, 200, 0)
       end
 
       def draw_buttons
-        draw_button("Player", 200, 300)
-        draw_button("Computer", 300, 300)
+        draw_button("Human vs Computer", 150, 300)
+        draw_button("Computer vs Human", 400, 300)
+        draw_button("Human vs Human", 150, 400)
+        draw_button("Computer vs Computer", 400, 400)
       end
 
       def draw_button(text, x, y)
