@@ -57,7 +57,32 @@ module TicTacToe
     
     private
 
-    def build_board(board)
+    def build_board(board_string)
+      side_length = Math.sqrt(board_string.size).to_i  
+      str = ""
+      
+      board_string.chars.each_slice(side_length).to_a.each_with_index do |row, i|
+        unless i == 0
+          str[-1] = "\n"
+          str << "----|" * row.size
+          str[-1] = "\n"
+        end
+
+        row.each_with_index do |square, j|
+          unless j == 0
+            str << "|"
+          end
+          if square != " "
+            str << square.center(4)
+          else
+            str << (i * side_length + j + 1).to_s.center(4)
+          end
+        end
+      end
+      str
+    end
+
+    def old_build_board(board)
      board_str = BOARD_STRING.dup
      board.chars.each_with_index do |cell, i|
        cell_mark = if cell == "X"

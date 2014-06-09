@@ -9,7 +9,7 @@ describe TicTacToe::CLIRunner do
 
   context 'playing through the whole game' do
     before do
-      display.input.string = "y\n0\n1\n2\n3\n4\n5\n6\n7\n8\nn\n"
+      display.input.string = "y\n3\n0\n1\n2\n3\n4\n5\n6\n7\n8\nn\n"
       begin
        runner.play
       rescue SystemExit

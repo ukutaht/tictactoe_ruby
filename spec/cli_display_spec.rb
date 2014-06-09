@@ -53,8 +53,16 @@ describe TicTacToe::CLIDisplay do
     expect(display.output.string).to include '5'
   end
 
+  it 'can show a 4x4 board' do
+    display.show_board("XX  XOO  OX  X X")
+
+    expect(display.output.string.count("X")).to eq 6
+    expect(display.output.string.count("O")).to eq 3
+    expect(display.output.string).to include '15'
+  end
+
   it 'clears the screen before showing board' do
-    display.show_board("")
+    display.show_board("X XO OXXX")
     expect(display.output.string).to include "\e[H\e[2J"
   end
 
