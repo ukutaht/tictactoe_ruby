@@ -30,6 +30,28 @@ describe TicTacToe::Core::Game do
     expect(game.play_next_move(-1)).to be_falsey
   end
 
+
+  it 'sets the boards size' do
+    game.set_board_size(4)
+
+    expect(game.board_string.size).to eq 16
+  end
+
+  it 'returns a truthy value if valid board size was set' do
+    expect(game.set_board_size(4)).to be_truthy
+  end
+
+  it 'does not set the size to an invalid board size' do
+    game.set_board_size(5)
+
+    expect(game.board_string.size).to_not eq 25
+  end
+
+  it 'returns a falsey value if invalid board size was given' do
+    expect(game.set_board_size(5)).to be_falsey
+  end
+
+
   it 'plays a computer move if current player is computer' do
     game.computer_goes_first
     game.play_next_move

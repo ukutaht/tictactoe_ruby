@@ -18,6 +18,14 @@ module TicTacToe
         (0...board_string.size).select{|i| board_string[i] == EMPTY}
       end
 
+      def set_size(size)
+        @board_string = EMPTY * (size**2)
+      end
+
+      def size
+        Math.sqrt(board_string.size)
+      end
+
       def game_over?
         draw? || winner
       end
@@ -66,7 +74,7 @@ module TicTacToe
       private
 
       def calculate_winning_combinations
-        side_length = Math.sqrt(board_string.size)
+        side_length = size
 
         indices_ary = (0...board_string.size).each_slice(side_length).to_a
 

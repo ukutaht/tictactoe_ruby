@@ -132,4 +132,18 @@ describe TicTacToe::Core::Board do
       expect(board.winner).to eq "X"
     end
   end
+
+  describe 'setting and getting size' do
+    let(:board) { TicTacToe::Core::Board.new }
+
+    it 'can set its size to an arbitrary value' do
+      board.set_size(10)
+
+      expect(board.valid_move?(99)).to be_truthy
+    end
+
+    it 'can report its size' do
+      expect(board.size).to eq 3
+    end
+  end
 end

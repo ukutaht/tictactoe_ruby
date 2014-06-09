@@ -9,6 +9,7 @@ module TicTacToe
 
     def play
       get_players
+      get_board_size
       until game.over?
         display.show_board(game.board_string)
         play_turn
@@ -25,6 +26,14 @@ module TicTacToe
       else
         display.invalid_input_message
         get_players
+      end
+    end
+
+    def get_board_size
+      size = display.prompt_board_size.to_i
+      until game.set_board_size(size)
+        display.invalid_input_message
+        size = display.prompt_board_size.to_i
       end
     end
 
@@ -55,7 +64,7 @@ module TicTacToe
 
     def get_move
       if game.current_player.human?
-       display.prompt_move.to_i - 1 
+        display.prompt_move.to_i - 1 
       end
     end
   end

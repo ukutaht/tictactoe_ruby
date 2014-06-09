@@ -19,6 +19,13 @@ describe TicTacToe::CLIDisplay do
     expect(display.output.string).to match /go first?/
   end
 
+  it 'prompts for board size' do
+    input.string = "4\n"
+
+    expect(display.prompt_board_size).to eq '4'
+    expect(display.output.string).to match /board size/
+  end
+
   it 'shows invalid move message' do
     display.invalid_input_message
 

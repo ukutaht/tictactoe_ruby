@@ -17,6 +17,8 @@ module TicTacToe
         end
       end
 
+      VALID_BOARD_SIZES = [3,4]
+
       attr_reader :board, :players
 
       def initialize(board=TicTacToe::Core::Board.new)
@@ -28,6 +30,11 @@ module TicTacToe
         if current_player.make_move(board, board_index)
           players.rotate!
         end
+      end
+
+      def set_board_size(size)
+        return true if board.size == size
+        board.set_size(size) if VALID_BOARD_SIZES.include?(size)
       end
 
       def human_goes_first

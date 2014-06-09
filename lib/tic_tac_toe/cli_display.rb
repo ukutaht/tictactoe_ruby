@@ -24,7 +24,7 @@ module TicTacToe
     end
 
     def invalid_input_message
-      output.puts "Invalid move, try again."
+      output.puts "Invalid input, try again."
     end
 
     def announce_winner(winner)
@@ -37,6 +37,11 @@ module TicTacToe
 
     def prompt_if_user_goes_first
       output.print "Would you like to go first?(y/n)"
+      input.gets.chomp
+    end
+
+    def prompt_board_size
+      output.puts 'Select board size(3/4)'
       input.gets.chomp
     end
 

@@ -1,5 +1,6 @@
 require 'tic_tac_toe/cli_runner'
 require 'tic_tac_toe/cli_display'
+require 'tic_tac_toe/core/game'
 
 describe TicTacToe::CLIRunner do
   let(:game) { TicTacToe::Core::Game.new }
@@ -91,5 +92,19 @@ describe TicTacToe::CLIRunner do
     display.input.string = "n"
 
     expect { runner.play_again_or_quit }.to raise_error SystemExit
+  end
+
+  it 'gets board size' do
+    display.input.string = '4'
+    runner.get_board_size
+
+    expect(game.board_string.size).to eq 16
+  end
+
+  it 'displays invalid input message until a valid board size is given' do
+    display.input.string = "0\n3\n" 
+    runner.get_board_size
+
+    expect(display.output.string).to match /Invalid/
   end
 end
