@@ -9,9 +9,10 @@ gui = TicTacToe::GUIDisplay.new(600)
 setup_controller = TicTacToe::GUI::SetupController.new(game, TicTacToe::GUI::SetupView.new(gui))
 gameplay_controller = TicTacToe::GUI::GameplayController.new(game, TicTacToe::GUI::GameplayView.new(gui))
 final_screen_controller = TicTacToe::GUI::FinalScreenController.new(game, TicTacToe::GUI::FinalScreenView.new(gui))
+board_picker_controller = TicTacToe::GUI::BoardPickerController.new(game, TicTacToe::GUI::BoardPickerView.new(gui))
 
 
-controllers = [setup_controller, gameplay_controller, final_screen_controller]
+controllers = [setup_controller, board_picker_controller, gameplay_controller, final_screen_controller]
 
 gui.controllers = controllers
 gui.show

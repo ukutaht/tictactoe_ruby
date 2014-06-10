@@ -1,7 +1,7 @@
 module TicTacToe
   module Core
     class Board
-      attr_reader :board_string
+      attr_reader :board_string, :size
 
       STARTING_BOARD =  "         "
       EMPTY = " "
@@ -19,11 +19,8 @@ module TicTacToe
       end
 
       def set_size(size)
+        @size = size
         @board_string = EMPTY * (size**2)
-      end
-
-      def size
-        Math.sqrt(board_string.size)
       end
 
       def game_over?
@@ -74,7 +71,7 @@ module TicTacToe
       private
 
       def calculate_winning_combinations
-        side_length = size
+        side_length = Math.sqrt(board_string.size)
 
         indices_ary = (0...board_string.size).each_slice(side_length).to_a
 

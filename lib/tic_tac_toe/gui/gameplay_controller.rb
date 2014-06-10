@@ -18,7 +18,7 @@ module TicTacToe
       end
 
       def on_click(x, y)
-         board_index = view.cell_index_for(x, y)
+         board_index = view.cell_index_for(x, y, game.board.size)
          game.play_next_move(board_index) 
       end
 

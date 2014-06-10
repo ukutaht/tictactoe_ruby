@@ -6,7 +6,6 @@ module TicTacToe
 
     def initialize(width)
       @width = width
-      @cell_width = width / 3
       super(width, width, false)
     end
 

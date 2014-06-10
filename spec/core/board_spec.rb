@@ -142,8 +142,10 @@ describe TicTacToe::Core::Board do
       expect(board.valid_move?(99)).to be_truthy
     end
 
-    it 'can report its size' do
-      expect(board.size).to eq 3
+    it 'sets size attribute' do
+      board.set_size 5
+
+      expect(board.size).to eq 5
     end
   end
 end

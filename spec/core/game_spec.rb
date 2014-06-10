@@ -37,6 +37,16 @@ describe TicTacToe::Core::Game do
     expect(game.board_string.size).to eq 16
   end
 
+  it 'knows when size is set' do
+    game.set_board_size(4)
+
+    expect(game.board_size_set?).to eq true
+  end
+
+  it 'knows when size is not yet set' do
+    expect(game.board_size_set?).to eq false
+  end
+
   it 'returns a truthy value if valid board size was set' do
     expect(game.set_board_size(4)).to be_truthy
   end

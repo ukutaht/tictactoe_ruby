@@ -61,6 +61,10 @@ module TicTacToe
         players.size < 2
       end
 
+      def board_size_set?
+        !!board.size
+      end
+
       def over?
         board.game_over?
       end
