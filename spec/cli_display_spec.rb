@@ -16,7 +16,7 @@ describe TicTacToe::CLIDisplay do
     input.string = "1\n"
 
     expect(display.prompt_if_user_goes_first).to eq '1'
-    expect(display.output.string).to match /go first?/
+    expect(display.output.string).to match /Select game type/
   end
 
   it 'prompts for board size' do
