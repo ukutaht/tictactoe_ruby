@@ -6,7 +6,7 @@ game = TicTacToe::Core::Game.new
 gui = TicTacToe::GUIDisplay.new(600)
 
 
-setup_controller = TicTacToe::GUI::SetupController.new(game, TicTacToe::GUI::SetupView.new(gui))
+setup_controller = TicTacToe::GUI::PlayerPickerController.new(game, TicTacToe::GUI::PlayerPickerView.new(gui))
 gameplay_controller = TicTacToe::GUI::GameplayController.new(game, TicTacToe::GUI::GameplayView.new(gui))
 final_screen_controller = TicTacToe::GUI::FinalScreenController.new(game, TicTacToe::GUI::FinalScreenView.new(gui))
 board_picker_controller = TicTacToe::GUI::BoardPickerController.new(game, TicTacToe::GUI::BoardPickerView.new(gui))

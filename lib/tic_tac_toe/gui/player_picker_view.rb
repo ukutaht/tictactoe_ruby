@@ -1,6 +1,6 @@
 module TicTacToe
   module GUI
-    class SetupView
+    class PlayerPickerView
       attr_reader :gui
 
       def initialize(gui)

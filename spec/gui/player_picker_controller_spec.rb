@@ -1,9 +1,9 @@
 require 'tic_tac_toe/gui/player_picker_controller'
 
-describe TicTacToe::GUI::SetupController do
+describe TicTacToe::GUI::PlayerPickerController do
   let(:game) { double() }
   let(:view) { double() }
-  let(:controller) { TicTacToe::GUI::SetupController.new(game, view) }
+  let(:controller) { TicTacToe::GUI::PlayerPickerController.new(game, view) }
 
   it 'is current if game needs players' do
     allow(game).to receive(:need_players?).and_return(true)
@@ -15,6 +15,18 @@ describe TicTacToe::GUI::SetupController do
     allow(game).to receive(:need_players?).and_return(false)
 
     expect(controller.current?).to be_falsey
+  end
+
+  it 'responds to click if coordinates passed to update' do
+    expect(controller).to receive(:on_click)
+
+    controller.update([0, 0])
+  end
+
+  it 'responds to click if coordinates passed to update' do
+    expect(controller).to_not receive(:on_click)
+
+    controller.update([])
   end
 
   it 'lets human go first if they click player button' do
