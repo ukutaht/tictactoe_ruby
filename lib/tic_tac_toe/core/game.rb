@@ -21,8 +21,9 @@ module TicTacToe
       end
 
       def set_board_size(size)
-        return true if board.size == size
-        board.set_size(size) if VALID_BOARD_SIZES.include?(size)
+        return false unless VALID_BOARD_SIZES.include?(size)
+
+        board.set_size(size)
       end
 
       def human_vs_human
