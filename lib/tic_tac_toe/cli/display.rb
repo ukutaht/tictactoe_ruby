@@ -26,7 +26,7 @@ module TicTacToe
     end
 
     def prompt_if_user_goes_first
-      output.print "Select game type(1 - human vs computer, 2 - computer vs human, 3 - human vs human, 4 - computer vs computer"
+      output.puts "Select game type: \n 1 - human vs computer\n 2 - computer vs human\n 3 - human vs human\n 4 - computer vs computer"
       input.gets.chomp
     end
 
