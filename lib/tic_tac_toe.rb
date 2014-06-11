@@ -5,8 +5,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "tic_tac_toe/core/board"
 require 'tic_tac_toe/core/game'
 require 'tic_tac_toe/core/computer_player'
-require 'tic_tac_toe/cli_runner'
-require 'tic_tac_toe/cli_display'
+require 'tic_tac_toe/cli/runner'
+require 'tic_tac_toe/cli/display'
 require 'tic_tac_toe/gui/setup_controller'
 require 'tic_tac_toe/gui/gameplay_controller'
 require 'tic_tac_toe/gui/gameplay_view'

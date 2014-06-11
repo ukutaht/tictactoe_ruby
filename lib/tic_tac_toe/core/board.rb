@@ -60,6 +60,10 @@ module TicTacToe
         board_string
       end
 
+      def to_sym
+        board_string.to_sym
+      end
+
       def empty?
         board_string.chars.all?{|char| char == EMPTY}
       end

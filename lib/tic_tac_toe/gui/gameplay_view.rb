@@ -17,7 +17,7 @@ module TicTacToe
       end
 
       def draw_grid(board)
-        @cell_width ||= gui.width / board.size
+        @cell_width = gui.width / board.size
 
         (1...board.size).each do |n|
           start_point = @cell_width * n

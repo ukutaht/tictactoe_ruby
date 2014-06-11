@@ -1,5 +1,5 @@
-require 'tic_tac_toe/cli_runner'
-require 'tic_tac_toe/cli_display'
+require 'tic_tac_toe/cli/runner'
+require 'tic_tac_toe/cli/display'
 require 'tic_tac_toe/core/game'
 
 describe TicTacToe::CLIRunner do

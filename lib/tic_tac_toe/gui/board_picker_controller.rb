@@ -12,7 +12,10 @@ module TicTacToe
         !game.need_players? && !game.board_size_set?
       end
 
-      def update
+      def update(coordinates)
+        if !coordinates.empty?
+          on_click(*coordinates)
+        end
       end
 
       def on_click(x, y)

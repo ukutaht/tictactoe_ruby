@@ -6,6 +6,7 @@ module TicTacToe
 
     def initialize(width)
       @width = width
+      @click_coordinates = []
       super(width, width, false)
     end
 
@@ -13,22 +14,24 @@ module TicTacToe
       true
     end
 
-    def update
-      @current_controller = controllers.find(&:current?)
-      @current_controller.update
-    end
-
     def button_down(id)
       case id
       when Gosu::KbQ 
         close
       when Gosu::MsLeft
-        @current_controller.on_click(mouse_x, mouse_y)
+        @click_coordinates = [mouse_x, mouse_y]
       end
+    end
+
+    def update
+      @current_controller = controllers.find(&:current?)
+      @current_controller.update(@click_coordinates)
+      @click_coordinates = []
     end
 
     def draw
       @current_controller.render_view
     end
+
   end
 end

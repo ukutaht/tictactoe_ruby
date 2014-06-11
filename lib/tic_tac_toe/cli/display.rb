@@ -10,7 +10,7 @@ module TicTacToe
 
     def show_board(board)
       output.puts "\e[H\e[2J"
-      output.puts build_board(board)
+      output.puts add_color(build_board(board))
     end
 
     def invalid_input_message
@@ -46,6 +46,19 @@ module TicTacToe
     end
     
     private
+
+    def add_color(string)
+      string.chars.map do |char|
+        case char
+        when "X"
+          char.red
+        when "O"
+          char.blue
+        else
+          char.white
+        end
+      end.join
+    end
 
     def build_board(board_string)
       side_length = Math.sqrt(board_string.size).to_i  

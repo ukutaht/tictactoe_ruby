@@ -26,7 +26,8 @@ describe TicTacToe::GUI::GameplayController do
   end
 
   it 'sends play next move to game with correct index' do
-    allow(view).to receive(:cell_index_for).with(0, 0).and_return(0)
+    allow(view).to receive(:cell_index_for).with(0, 0, 4).and_return(0)
+    allow(game).to receive(:board).and_return(double('board', :size => 4))
     expect(game).to receive(:play_next_move).with(0)
 
     controller.on_click(0, 0) 

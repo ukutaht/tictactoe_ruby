@@ -1,4 +1,4 @@
-require 'tic_tac_toe/cli_display'
+require 'tic_tac_toe/cli/display'
 
 describe TicTacToe::CLIDisplay do
   let(:input) { StringIO.new }
@@ -58,7 +58,6 @@ describe TicTacToe::CLIDisplay do
 
     expect(display.output.string.count("X")).to eq 6
     expect(display.output.string.count("O")).to eq 3
-    expect(display.output.string).to include '15'
   end
 
   it 'clears the screen before showing board' do

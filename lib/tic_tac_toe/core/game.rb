@@ -1,22 +1,10 @@
 require_relative 'board'
 require_relative 'computer_player'
+require_relative 'human_player'
 
 module TicTacToe
   module Core
     class Game
-
-      HumanPlayer = Struct.new(:mark) do
-        def human?
-          true
-        end
-
-        def make_move(board, index)
-          return false if !board.valid_move?(index)
-
-          board.move!(index, mark)
-        end
-      end
-
       VALID_BOARD_SIZES = [3,4]
 
       attr_reader :board, :players
@@ -89,7 +77,7 @@ module TicTacToe
       end
 
      def human_player(mark)
-        HumanPlayer.new(mark)
+        TicTacToe::Core::HumanPlayer.new(mark)
       end
 
       def computer_player(mark)
