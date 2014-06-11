@@ -1,4 +1,4 @@
-require 'tic_tac_toe/gui/setup_controller'
+require 'tic_tac_toe/gui/player_picker_controller'
 
 describe TicTacToe::GUI::SetupController do
   let(:game) { double() }

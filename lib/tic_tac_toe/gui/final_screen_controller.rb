@@ -6,13 +6,17 @@ module TicTacToe
       def initialize(game, view)
         @game = game
         @view = view
+        @block = true
       end
 
       def current?
         game.over? && !game.need_players?
       end
 
-      def update
+      def update(coordinates)
+        if !coordinates.empty?
+          on_click(*coordinates)
+        end
       end
 
       def on_click(x, y)
@@ -25,6 +29,8 @@ module TicTacToe
       end
 
       def render_view
+        sleep(1) if @block
+        @block = false
         view.render(game.winner)
       end
     end
