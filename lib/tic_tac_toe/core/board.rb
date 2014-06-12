@@ -15,7 +15,7 @@ module TicTacToe
       end
 
       def valid_moves
-        (0...board_string.size).select{|i| board_string[i] == EMPTY}
+        @valid_moves ||= (0...board_string.size).select{|i| board_string[i] == EMPTY}
       end
 
       def set_size(size)
@@ -24,7 +24,7 @@ module TicTacToe
       end
 
       def game_over?
-        draw? || winner
+        winner || draw?
       end
 
       def winning_combinations
@@ -40,10 +40,11 @@ module TicTacToe
       end
 
       def draw?
-        valid_moves.empty? && !winner 
+        valid_moves.empty?
       end
 
       def move!(index, mark)
+        @valid_moves = valid_moves - [index]
         @board_string[index] = mark
         self
       end
@@ -89,8 +90,9 @@ module TicTacToe
       end
 
       def winning_row?(triplet)
-        row = triplet.map{|i| board_string[i]}
-        row.uniq.length == 1 && row[0] != EMPTY
+        mark = board_string[triplet.first]
+        return false if mark == EMPTY
+        triplet.all?{|i| board_string[i] == mark }
       end
     end
   end
