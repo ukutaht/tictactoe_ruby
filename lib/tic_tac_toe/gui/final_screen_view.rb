@@ -38,8 +38,6 @@ module TicTacToe
         @play_again_button.draw(200, 300, 0)
         @quit_button.draw(300, 300, 0)
       end
-
-
     end
   end
 end
