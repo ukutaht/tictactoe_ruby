@@ -1,4 +1,6 @@
 require 'gosu'
+require 'ruby-prof'
+
 module TicTacToe
   class GUIDisplay < Gosu::Window
     attr_reader :width, :cell_width 
@@ -7,6 +9,7 @@ module TicTacToe
     def initialize(width)
       @width = width
       @click_coordinates = []
+      @updating = false
       super(width, width, false)
     end
 
@@ -19,14 +22,21 @@ module TicTacToe
       when Gosu::KbQ 
         close
       when Gosu::MsLeft
-        @click_coordinates = [mouse_x, mouse_y]
+        if !@updating
+          @updating = true
+          @current_controller.on_click(mouse_x, mouse_y)
+        end
       end
     end
 
     def update
       @current_controller = controllers.find(&:current?)
-      @current_controller.update(@click_coordinates)
-      @click_coordinates = []
+      if !@updating
+        @current_controller.update([])
+      end
+
+
+      @updating = false
     end
 
     def draw
