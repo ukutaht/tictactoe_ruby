@@ -44,7 +44,7 @@ module TicTacToe
       end
 
       def move!(index, mark)
-        @valid_moves = valid_moves - [index]
+        valid_moves.delete(index)
         @board_string[index] = mark
         self
       end
