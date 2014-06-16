@@ -15,6 +15,10 @@ module TicTacToe
         false
       end
 
+      def can_make_move?(_, _)
+        true
+      end
+
       def make_move(board, _index)
         move = get_next_move(board)
         board.move!(move, self.mark)

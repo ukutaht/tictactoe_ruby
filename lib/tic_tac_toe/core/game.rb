@@ -15,7 +15,8 @@ module TicTacToe
       end
 
       def play_next_move(board_index=nil)
-        if current_player.make_move(board, board_index)
+        if current_player.can_make_move?(board, board_index)
+          current_player.make_move(board, board_index)
           players.rotate!
         end
       end

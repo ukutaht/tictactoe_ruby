@@ -12,17 +12,7 @@ describe TicTacToe::Core::HumanPlayer do
   end
 
   it 'returns truthy value if move was made' do
-    expect(player.make_move(board, 1)).to be_truthy
-  end
-
-  it 'does not make a move if move is invalid' do
-    player.make_move(board, 1000)
-    
-    expect(board).to be_empty
-  end
-
-  it'returns falsey value if move was not made' do
-    expect(player.make_move(board, 1000)).to be_falsey
+    expect(player.can_make_move?(board, 1)).to be_truthy
   end
 end
 

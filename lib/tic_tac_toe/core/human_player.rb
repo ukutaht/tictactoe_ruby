@@ -11,9 +11,11 @@ module TicTacToe
         true
       end
 
-      def make_move(board, index)
-        return false if !board.valid_move?(index)
+      def can_make_move?(board, index)
+        board.valid_move?(index)
+      end
 
+      def make_move(board, index)
         board.move!(index, mark)
       end
     end
