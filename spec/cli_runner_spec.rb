@@ -1,6 +1,6 @@
 require 'tic_tac_toe/cli/runner'
 require 'tic_tac_toe/cli/display'
-require 'tic_tac_toe/core/game'
+require 'tic_tac_toe-core'
 
 describe TicTacToe::CLIRunner do
   let(:game) { TicTacToe::Core::Game.new }
