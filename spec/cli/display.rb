@@ -1,4 +1,4 @@
-require 'tic_tac_toe/cli/display'
+tequire 'tic_tac_toe/cli/display'
 
 describe TicTacToe::CLIDisplay do
   let(:input) { StringIO.new }

@@ -14,6 +14,7 @@ require 'tic_tac_toe/gui/final_screen_view'
 require 'tic_tac_toe/gui/board_picker_controller'
 require 'tic_tac_toe/gui/board_picker_view'
 require 'tic_tac_toe/gui/display'
+require 'tic_tac_toe/qt_gui/display'
 
 module TicTacToe
   VERSION = "0.0.1"

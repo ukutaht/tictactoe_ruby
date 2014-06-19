@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require 'qt'
+require_relative '../lib/tic_tac_toe'
+
+app  = Qt::Application.new(ARGV)
+game = TicTacToe::Core::Game.new
+window = TicTacToe::Qt_GUI::Display.new(game)
+window.show
+app.exec

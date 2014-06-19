@@ -4,5 +4,6 @@ source 'https://rubygems.org'
 gem 'rspec', '~>3.0'
 gem 'colored'
 gem 'gosu'
+gem 'qtbindings'
 
 gem 'tic_tac_toe-core'
