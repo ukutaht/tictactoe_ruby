@@ -20,8 +20,14 @@ describe TicTacToe::Qt_GUI::BoardWidget do
       expect(find_widget('cell-1').text).to eq "X"
     end
 
-    it 'draws 4x4 board' do
+    it 'builds 4x4 board' do
       expect(window.find_children(TicTacToe::Qt_GUI::CellLabel).size).to eq 16
+    end
+
+    it 'draws empty squares when initialized' do
+      16.times do |n|
+        expect(find_widget("cell-#{n}").text).to eq ' '
+      end
     end
 
     it 'makes move when cell clicked' do
@@ -30,12 +36,21 @@ describe TicTacToe::Qt_GUI::BoardWidget do
       expect(game.board.char_at(1)).to eq 'X'
     end
 
+    it 'updates display after human move is made' do
+      cell_4 = find_widget('cell-4')
+      cell_4.mousePressEvent(nil)
+
+      expect(cell_4.text).to eq "X"
+    end
+
     it 'makes computer move after human move' do
       game.human_goes_first
       find_widget('cell-1').mousePressEvent(nil)
       emit window.timer.timeout()
       
       expect(game.board.valid_moves.length).to eq 14
+
+      expect(window).to have_cell('O')
     end
 
     it 'does not make a computer move if there is no computer' do
@@ -77,6 +92,17 @@ describe TicTacToe::Qt_GUI::BoardWidget do
 
       find_widget('cell-2').mousePressEvent(nil)
       expect(game.board.char_at(2)).to eq ' '
+    end
+
+    it 'can play through the whole game through gui' do
+      game.human_vs_human
+
+      [0, 1, 4, 5, 8].each do |i|
+        find_widget("cell-#{i}").mousePressEvent(nil)
+      end
+
+      expect(game).to be_over
+      expect(game.winner).to eq 'X'
     end
   end
 end

@@ -5,6 +5,7 @@ module TicTacToe
   module Qt_GUI
     class SettingsWidget < Qt::Widget
       attr_reader :game
+      attr_accessor :display
       slots :start_game
 
       def initialize(game)
@@ -22,6 +23,8 @@ module TicTacToe
       end
 
       def start_game
+        game.reset!
+        display.reset_message_box
         all_checked_radio_buttons.each do |btn|
           case btn.object_name
           when 'Human vs Human'
@@ -38,6 +41,8 @@ module TicTacToe
             game.set_board_size(4)
           end
         end
+
+        display.add_board
       end
 
       def all_checked_radio_buttons
