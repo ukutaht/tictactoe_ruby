@@ -11,9 +11,17 @@ module TicTacToe
         super(nil)
         @game = game
         self.layout = Qt::VBoxLayout.new
+        add_settings
+        add_message_box
+      end
+
+      def add_settings
         @settings = TicTacToe::Qt_GUI::SettingsWidget.init(game)  
         settings.display = self
         layout.add_widget(settings)
+      end
+
+      def add_message_box
         @message_box = Qt::Label.new
         @message_box.alignment = Qt::AlignHCenter
         layout.add_widget(@message_box)
